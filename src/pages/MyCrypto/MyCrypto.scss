@@ -1,0 +1,53 @@
+// Styles for the MyCrypto page
+
+.my-crypto-container {
+  padding: 20px;
+
+  h1 {
+    font-size: 32px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  .my-crypto-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+
+    th,
+    td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+
+    tbody tr:hover {
+      background-color: #f9f9f9;
+    }
+
+    td img {
+      object-fit: scale-down;
+      vertical-align: middle;
+      margin-right: 10px;
+    }
+
+    button {
+      padding: 5px 10px;
+      background-color: #ff4d4d;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #ff1a1a;
+      }
+    }
+  }
+}

@@ -1,0 +1,56 @@
+/* Basic styles for the App component */
+
+.App {
+  padding: 20px;
+}
+
+.app {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Dark mode styles */
+body.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
+
+  /* Add dark mode styles for other elements as needed */
+  .home-container,
+  .my-crypto-container {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+  }
+
+  .coin-table,
+  .my-crypto-table {
+    th {
+      background-color: #333;
+      color: #e0e0e0;
+    }
+
+    td {
+      border-bottom-color: #555;
+    }
+
+    tbody tr:hover {
+      background-color: #2a2a2a;
+    }
+  }
+
+  .pagination-controls button {
+    border-color: #555;
+    background-color: #333;
+    color: #e0e0e0;
+
+    &:hover:not(:disabled) {
+      background-color: #444;
+    }
+  }
+
+  .filter-controls input {
+    background-color: #333;
+    color: #e0e0e0;
+    border-color: #555;
+  }
+}
