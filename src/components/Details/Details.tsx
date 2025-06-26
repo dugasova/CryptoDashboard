@@ -87,7 +87,6 @@ const Details: React.FC = () => {
           <strong data-tooltip-id="marketCapTooltip" data-tooltip-content="Market Cap = Current Price x Circulating Supply Refers to the total market value of a cryptocurrency's circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)">
             Market Cap:
           </strong>
-          <Tooltip id="marketCapTooltip" classNameArrow="example-arrow" />
           {/* Access market_cap from market_data */}
           ${coinDetails.market_data.market_cap?.usd ? coinDetails.market_data.market_cap.usd : 'N/A'}
           {/* <p  className="example-diff-arrow" >
@@ -104,7 +103,6 @@ const Details: React.FC = () => {
           <strong data-tooltip-id="fdvTooltip" data-tooltip-content="Fully Diluted Valuation (FDV) = Current Price x Total Supply Fully Diluted Valuation (FDV) is the theoretical market capitalization of a coin if the entirety of its supply is in circulation, based on its current market price. The FDV value is theoretical as increasing the circulating supply of a coin may impact its market price. Also depending on the tokenomics, emission schedule or lock-up period of a coin's supply, it may take a significant time before its entire supply is released into circulation.">
             Fully Diluted Valuation:
           </strong>
-          <Tooltip id="fdvTooltip" />
           {/* Access fully_diluted_valuation from market_data */}
           ${coinDetails.market_data.fully_diluted_valuation?.usd ? coinDetails.market_data.fully_diluted_valuation.usd : 'N/A'}
           {/* Remove the paragraph */}
@@ -122,7 +120,6 @@ const Details: React.FC = () => {
           <strong data-tooltip-id="circulatingSupplyTooltip" data-tooltip-content="The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)">
             Circulating Supply:
           </strong>
-          <Tooltip id="circulatingSupplyTooltip" />
           {/* Access circulating_supply from market_data */}
           {coinDetails.market_data.circulating_supply}
           {/* <p>
@@ -138,7 +135,6 @@ const Details: React.FC = () => {
             <strong data-tooltip-id="tradingVolTooltip" data-tooltip-content="A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times.">
               24 Hour Trading Vol:
             </strong>
-            <Tooltip id="tradingVolTooltip" />
             {/* Access total_volume from market_data */}
             ${coinDetails.market_data.total_volume?.usd ? coinDetails.market_data.total_volume.usd : 'N/A'}
             {/* <p>
@@ -157,6 +153,10 @@ const Details: React.FC = () => {
           </div>
         </div>
       </div>
+      <Tooltip id="marketCapTooltip" classNameArrow="example-arrow" />
+      <Tooltip id="fdvTooltip" />
+      <Tooltip id="circulatingSupplyTooltip" />
+      <Tooltip id="tradingVolTooltip" />
     </div>
   );
 };
