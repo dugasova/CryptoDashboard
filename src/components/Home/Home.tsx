@@ -95,7 +95,7 @@ const Home: React.FC = () => {
               <td>${coin.market_cap.toLocaleString()}</td>
               <td>
                 {coin.sparkline_in_7d?.price && (
-                  <ResponsiveContainer width="70%" height={70}>
+                  <ResponsiveContainer width="100%" height={70}>
                     <LineChart data={coin.sparkline_in_7d.price.map((price: number, index: number) => ({ price, day: index }))}>
                       <Line
                         type="monotone"

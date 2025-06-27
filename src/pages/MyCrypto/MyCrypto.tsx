@@ -20,18 +20,15 @@ const MyCrypto: React.FC = () => {
               <th>Price</th>
               <th>Market Cap</th>
               <th>24h Volume</th>
-              <th></th> {/* Column for remove button */}
             </tr>
           </thead>
           <tbody>
             {selectedCoins.map((coin: CoinData) => (
               <tr key={coin.id}>
                 <td>
-                  <img src={coin.image} alt={coin.name} width="20" height="20" />
-                  {coin.name} ({coin.symbol.toUpperCase()})
+                  <img src={coin.image}
+                    alt={coin.name} width="20" height="20" />{coin.name} ({coin.symbol.toUpperCase()})</td><td>${coin.current_price.toLocaleString()}</td><td>${coin.market_cap.toLocaleString()}
                 </td>
-                <td>${coin.current_price.toLocaleString()}</td>
-                <td>${coin.market_cap.toLocaleString()}</td>
                 <td>${coin.total_volume.toLocaleString()}</td>
                 <td>
                   <button onClick={() => removeSelectedCoin(coin.id)}>Remove</button>

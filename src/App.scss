@@ -16,12 +16,12 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh; /* Ensure app takes full viewport height */
+    min-height: 100vh;
 }
 
 /* Dark mode styles */
 body.dark-mode {
-  /* These are now handled by the variables in index.css */
+
 
   /* Add dark mode styles for other elements as needed */
   .home-container,
@@ -29,7 +29,7 @@ body.dark-mode {
     background-color: var(--background-color-secondary);
     color: var(--text-color-primary);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    border: 1px solid var(--background-color-secondary-dark); /* Using a dark mode specific border color */
+    border: 1px solid var(--background-color-secondary-dark); 
 
     h1 {
       color: var(--text-color-primary);
@@ -73,7 +73,7 @@ body.dark-mode {
     transition: background-color 0.2s ease, border-color 0.2s ease;
 
     &:hover:not(:disabled) {
-      background-color: var(--accent-color); /* Using accent color for hover */
+      background-color: var(--accent-color);
       border-color: var(--accent-color);
     }
 
@@ -93,7 +93,7 @@ body.dark-mode {
 
     &:focus {
       border-color: var(--primary-color);
-      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.3); /* Using primary color for focus shadow */
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.3);
       outline: none;
     }
   }
@@ -146,7 +146,7 @@ body.dark-mode {
   th, td {
     padding: 12px 15px;
     text-align: left;
-    border-bottom: 1px solid var(--text-color-tertiary-light); /* Using a light mode specific border color */
+    border-bottom: 1px solid var(--text-color-tertiary-light);
   }
 
   th {
