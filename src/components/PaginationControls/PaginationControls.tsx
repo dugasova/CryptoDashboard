@@ -4,7 +4,7 @@ import type { CoinData } from '../../types/cryptoTypes';
 import './PaginationControls.scss';
 
 const PaginationControls: React.FC = () => {
-  const { 
+  const {
     coins,
     currentPage,
     itemsPerPage,

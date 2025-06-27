@@ -5,13 +5,13 @@ import useCryptoStore from '../../store/cryptoStore';
 import type { CoinData } from '../../types/cryptoTypes';
 import MarketCapFilter from '../MarketCapFilter/MarketCapFilter';
 import PaginationControls from '../PaginationControls/PaginationControls';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
 
 const Home: React.FC = () => {
-  const navigate = useNavigate(); // Get the navigate function
+  const navigate = useNavigate();
 
   // Use state and actions from the Zustand store
-  const { 
+  const {
     coins,
     loading,
     error,
@@ -20,13 +20,13 @@ const Home: React.FC = () => {
     minMarketCap,
     maxMarketCap,
     fetchCoins,
-    addSelectedCoin, // Import the addSelectedCoin action
+    addSelectedCoin,
   } = useCryptoStore();
 
   useEffect(() => {
     // Fetch coins when the component mounts
     fetchCoins();
-  }, [fetchCoins]); // Add fetchCoins to dependency array
+  }, [fetchCoins]);
 
   // Filter coins based on market cap input
   const filteredCoins = coins.filter((coin: CoinData) => {
@@ -40,10 +40,6 @@ const Home: React.FC = () => {
   const indexOfFirstCoin = indexOfLastCoin - itemsPerPage;
   const currentCoins = filteredCoins.slice(indexOfFirstCoin, indexOfLastCoin);
 
-  // Remove unused filter handling functions
-  // const handleMinMarketCapChange = (event: React.ChangeEvent<HTMLInputElement>) => { ... };
-  // const handleMaxMarketCapChange = (event: React.ChangeEvent<HTMLInputElement>) => { ... };
-
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -56,7 +52,6 @@ const Home: React.FC = () => {
     <div className="home-container">
       <h1>Cryptocurrency Prices by Market Cap</h1>
 
-      {/* Render the separate MarketCapFilter component */}
       <MarketCapFilter />
 
       <table className="coin-table">
@@ -71,15 +66,15 @@ const Home: React.FC = () => {
             <th>24h Volume</th>
             <th>Market Cap</th>
             <th>Last 7 Days</th>
-            <th></th> {/* New column for selection */}
+            <th></th>
           </tr>
         </thead>
         <tbody>
           {currentCoins.map((coin: CoinData) => (
-            <tr 
-              key={coin.id} 
-              onClick={() => navigate(`/crypto/${coin.id}`)} // Add onClick handler
-              className="clickable-row" // Add class for styling
+            <tr
+              key={coin.id}
+              onClick={() => navigate(`/crypto/${coin.id}`)}
+              className="clickable-row"
             >
               <td>{coin.market_cap_rank}</td>
               <td>
@@ -105,16 +100,16 @@ const Home: React.FC = () => {
                       <Line
                         type="monotone"
                         dataKey="price"
-                        stroke="#8884d8" // You can customize the color
+                        stroke="#8884d8"
                         strokeWidth={2}
-                        dot={false} // Hide data points
+                        dot={false}
                       />
                     </LineChart>
                   </ResponsiveContainer>
                 )}
               </td>
               <td>
-                <button onClick={(e) => { e.stopPropagation(); addSelectedCoin(coin); }}>Add to My Crypto</button> {/* Stop propagation to prevent row click */}
+                <button onClick={(e) => { e.stopPropagation(); addSelectedCoin(coin); }}>Add to My Crypto</button>
               </td>
             </tr>
           ))}

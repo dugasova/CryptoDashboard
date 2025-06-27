@@ -1,3 +1,39 @@
+:root {
+    --primary-color: #539be8;
+    --accent-color: #3e5b7a; 
+
+    /* Light Mode Colors */
+    --background-color-primary-light: #f4f7f6;
+    --background-color-secondary-light: #ffffff;
+    --text-color-primary-light: #333;
+    --text-color-secondary-light: #555;
+    --text-color-tertiary-light: #6c757d;
+    /* Dark Mode Colors */
+    --background-color-primary-dark: #1a202c;
+    --background-color-secondary-dark: #2d3748;
+    --text-color-primary-dark: #e2e8f0;
+    --text-color-secondary-dark: #e2e8f0;
+    --text-color-tertiary-dark: #a0aec0;
+}
+
+/* Default (Light Mode) Variables */
+body {
+    --background-color-primary: var(--background-color-primary-light);
+    --background-color-secondary: var(--background-color-secondary-light);
+    --text-color-primary: var(--text-color-primary-light);
+    --text-color-secondary: var(--text-color-secondary-light);
+    --text-color-tertiary: var(--text-color-tertiary-light);
+}
+
+/* Dark Mode Overrides */
+body.dark-mode {
+    --background-color-primary: var(--background-color-primary-dark);
+    --background-color-secondary: var(--background-color-secondary-dark);
+    --text-color-primary: var(--text-color-primary-dark);
+    --text-color-secondary: var(--text-color-secondary-dark);
+    --text-color-tertiary: var(--text-color-tertiary-dark);
+}
+
 * {
     margin: 0;
     padding: 0;

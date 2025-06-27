@@ -1,8 +1,8 @@
 import React from 'react'
-import Details from '../components/Details/Details'; // Import the Details component
+import Details from '../components/Details/Details';
 
 export default function DetailsRoute() {
   return (
-    <Details /> // Render the Details component
+    <Details />
   )
 }

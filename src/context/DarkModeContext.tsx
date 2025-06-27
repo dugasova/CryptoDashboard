@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
-import { DarkModeContext } from './DarkModeContext.ts'; // Import the context from the new file
+import { DarkModeContext } from './DarkModeContext.ts';
 
 export const DarkModeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [darkMode, setDarkMode] = useState<boolean>(() => {

@@ -47,7 +47,7 @@
     strong {
       font-size: 1.1em;
       margin-right: 5px;
-      cursor: pointer; /* Add cursor pointer to strong */
+      cursor: pointer;
     }
 
     p {
@@ -55,24 +55,26 @@
       font-size: 0.9em;
       color: var(--text-color-secondary);
       line-height: 1.5;
-      max-height: 0; /* Hide paragraph by default */
-      overflow: hidden; /* Hide overflowing content */
-      transition: max-height 0.3s ease-in-out; /* Add transition for smooth expansion */
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-in-out;
     }
 
-    &.expanded p { /* New rule: when the div has class 'expanded', show the p */
-      max-height: 500px; /* Revert max-height */
-      overflow: hidden; /* Revert overflow */
+    &.expanded p {
+      max-height: 500px;
+      overflow: hidden;
     }
   }
 }
+
 .desc-apears {
-    display: block;
-    margin-top: 20px;
-    font-size: 0.9em;
-    color: var(--text-color-secondary);
-    line-height: 1.6;
+  display: block;
+  margin-top: 20px;
+  font-size: 0.9em;
+  color: var(--text-color-secondary);
+  line-height: 1.6;
 }
+
 .details-description {
   margin-top: 20px;
 
@@ -81,29 +83,25 @@
     font-size: 1.5em;
     margin-bottom: 10px;
   }
+
   span {
-    display: block; /* Make the span behave like a block element */
-    line-height: 1.6; /* Increase line spacing for better readability */
-    font-size: 1.25em; /* Set a standard font size */
-    color: var(--text-color); /* Ensure text color uses the theme variable */
-    padding: 10px 15px; /* Add vertical and horizontal padding */
-    text-align: left; /* Ensure text is left-aligned */
-    margin: 10px 0; /* Add top and bottom margin */
+    display: block;
+    line-height: 1.6;
+    font-size: 1em;
+    color: var(--text-color);
+    padding: 10px 15px;
+    text-align: left;
+    margin: 10px 0;
   }
 }
 
 .react-tooltip {
-  /* Set a solid background color with full opacity */
-  background-color: #2c2c2c; /*!important; /* Example dark grey color */
-  color: wheat;/* !important; /* Use a theme color */
-  border-radius: 10px; /* !important; /* Make corners square */
-  padding: 20px  !important;
-  font-size: 0.9em; /*!important;*/
-  max-width: 300px; /*!important; /* Limit tooltip width */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* !important; /* Add a subtle shadow */
-  opacity: 1 !important; /* Ensure visibility */
-}
-.example-arrow{
-    background-color: rgb(222, 34, 72);
-
+  background-color: #2c2c2c;
+  color: wheat;
+  border-radius: 10px;
+  padding: 20px !important;
+  font-size: 0.9em;
+  max-width: 300px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  opacity: 1 !important;
 }
