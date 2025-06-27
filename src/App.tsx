@@ -7,6 +7,7 @@ import { DarkModeProvider } from './context/DarkModeContext.tsx'; // Import Dark
 import AdminRoute from './routes/AdminRoute.tsx';
 import AuthContext from './context/AuthContext.tsx';
 import AuthGuard from './HOC/AuthGuard.tsx';
+import AboutRoute from './routes/AboutRoute.tsx';
 
 
 // Universal function for lazy loading routes
@@ -46,7 +47,11 @@ export default function App() {
         {
           path: `admin`,
           element: <AdminRoute />,
-        }
+        },
+         {
+          path: `about`,
+          element: <AboutRoute />,
+        },
       ],
       errorElement: <ErrorRoute />,
     }
