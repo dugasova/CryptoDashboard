@@ -11,7 +11,7 @@
         &-item {
             font-size: 24px;
             font-weight: 700;
-            margin: 0 20px;
+            margin: 10px 20px;
             transition: color 0.3s ease;
 
             a {
@@ -23,6 +23,12 @@
                     text-decoration: underline;
                     color: rgb(87, 102, 123);
                 }
+            }
+
+            @media (max-width: 768px) {
+                font-size: 18px;
+                font-weight: 500;
+                margin: 10px 10px;
             }
         }
     }

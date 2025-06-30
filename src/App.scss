@@ -13,10 +13,10 @@ body {
 }
 
 .app {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
 }
 
 /* Dark mode styles */
@@ -29,7 +29,7 @@ body.dark-mode {
     background-color: var(--background-color-secondary);
     color: var(--text-color-primary);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    border: 1px solid var(--background-color-secondary-dark); 
+    border: 1px solid var(--background-color-secondary-dark);
 
     h1 {
       color: var(--text-color-primary);
@@ -117,6 +117,8 @@ body.dark-mode {
   }
 
   .auth-btn {
+    font-size: 12px;
+    font-weight: 200;
     border-color: var(--text-color-secondary-dark);
     background-color: var(--background-color-secondary);
     color: var(--text-color-primary);
@@ -143,7 +145,8 @@ body.dark-mode {
   border-collapse: collapse;
   margin-top: 20px;
 
-  th, td {
+  th,
+  td {
     padding: 12px 15px;
     text-align: left;
     border-bottom: 1px solid var(--text-color-tertiary-light);
@@ -189,6 +192,7 @@ body.dark-mode {
 
 .filter-controls {
   margin-bottom: 20px;
+
   input {
     width: 100%;
     padding: 10px 15px;
@@ -227,6 +231,7 @@ button {
     opacity: 0.7;
   }
 }
+
 .about-route {
   width: 500px;
   margin: 0 auto;

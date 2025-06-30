@@ -1,13 +1,18 @@
-import React, { lazy, useState } from 'react';
+import React, { lazy } from 'react';
 import './App.scss';
 import { createBrowserRouter, RouterProvider } from 'react-router';
 import Layout from './pages/Header/Layout';
 import ErrorRoute from './routes/ErrorRoute';
 import { DarkModeProvider } from './context/DarkModeContext.tsx'; // Import DarkModeProvider from the .tsx file
 import AdminRoute from './routes/AdminRoute.tsx';
-import AuthContext from './context/AuthContext.tsx';
+import { AuthProvider } from './context/AuthContext.tsx';
 import AuthGuard from './HOC/AuthGuard.tsx';
 import AboutRoute from './routes/AboutRoute.tsx';
+import PrivacyRoute from './routes/PrivacyRoute.tsx';
+import ContactRoute from './routes/ContactRoute.tsx';
+import TermsServicesRoute from './routes/TermsServicesRoute.tsx';
+import RegisterRoute from './routes/RegisterRoute.tsx';
+import LoginRoute from './routes/LoginRoute.tsx';
 
 
 // Universal function for lazy loading routes
@@ -22,7 +27,6 @@ const DetailsRouteLazy = lazyLoadRoute('DetailsRoute');
 const MyCryptoRouteLazy = lazyLoadRoute('MyCryptoRoute');
 
 export default function App() {
-  const [isAuth, setIsAuth] = useState(false);
   const router = createBrowserRouter([
     {
       path: `/`,
@@ -52,15 +56,35 @@ export default function App() {
           path: `about`,
           element: <AboutRoute />,
         },
+        {
+          path: `privacy`,
+          element: <PrivacyRoute />,
+        },
+        {
+          path: `contact`,
+          element: <ContactRoute />,
+        },
+          {
+          path: `terms`,
+          element: <TermsServicesRoute />,
+        },
+         {
+          path: `register`,
+          element: <RegisterRoute />,
+        },
+        {
+          path: `login`,
+          element: <LoginRoute />,
+        },
       ],
       errorElement: <ErrorRoute />,
     }
   ])
   return (
-    <AuthContext.Provider value={{isAuth, setIsAuth}}> {/* Wrap the application with AuthContext */}
+    <AuthProvider> {/* Wrap the application with AuthProvider */}
       <DarkModeProvider> {/* Wrap the application with DarkModeProvider */}
         <RouterProvider router={router} />
       </DarkModeProvider>
-    </AuthContext.Provider>
+    </AuthProvider>
   )
 }
