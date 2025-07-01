@@ -76,6 +76,14 @@ export default function App() {
           path: `login`,
           element: <LoginRoute />,
         },
+         {
+          path: `auth`,
+          element: <LoginRoute />,
+        },
+        {
+          path: `market-cap`,
+          element: <HomeRouteLazy />,
+        }
       ],
       errorElement: <ErrorRoute />,
     }

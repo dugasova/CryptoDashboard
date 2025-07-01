@@ -28,7 +28,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
     if (type === 'login') {
       success = await login(username, password);
       if (success) {
-        navigate('/my-crypto'); // Redirect to a protected route on successful login
+        navigate('/my-crypto');
       } else {
         setError('Invalid username or password');
       }

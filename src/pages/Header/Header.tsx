@@ -2,12 +2,13 @@ import React from 'react';
 import Menu from '../../components/Menu/Menu';
 import Logo from '../../assets/Bitcoin.svg.webp';
 import './Header.scss';
-import { useDarkMode } from '../../hooks/useDarkMode';
 import Auth from '../../components/Auth/Auth';
+import ToggleSwitch from '../../components/ToggleSwitch/ToggleSwitch';
 import { useNavigate } from 'react-router-dom';
+import { useDarkMode } from '../../hooks/useDarkMode';
 
 export default function Header() {
-  const { darkMode, toggleDarkMode } = useDarkMode();
+  const { darkMode } = useDarkMode();
   const navigate = useNavigate();
 
   return (
@@ -18,10 +19,10 @@ export default function Header() {
       </div>
       <div className="header__right">
         <Menu />
-        <button className="dark-mode-toggle" onClick={toggleDarkMode}>
-          {darkMode ? 'Light Mode' : 'Dark Mode'}
-        </button>
-        <Auth />
+        <div className="header__right__auth">
+          <Auth />
+          <ToggleSwitch />
+        </div>
       </div>
     </header>
   )
