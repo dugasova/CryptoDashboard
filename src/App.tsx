@@ -20,68 +20,71 @@ const TermsServicesLazy = lazy(() => import('./pages/TermsServices/TermsServices
 const RegisterLazy = lazy(() => import('./pages/Register/Register.tsx'));
 const LoginLazy = lazy(() => import('./pages/Login/Login.tsx'));
 
+// Created once at module scope: recreating it on every render would reset
+// the data router's internal state (loader cache, scroll restoration, in-flight navigation).
+const router = createBrowserRouter([
+  {
+    path: `/`,
+    element: <Layout />,
+    children: [
+      {
+        index: true,
+        element: <HomeLazy />,
+      },
+      {
+        path: `crypto`,
+        element: <CryptoLazy />,
+      },
+      {
+        path: `crypto/:id`,
+        element: <DetailsLazy />,
+      },
+      {
+        path: `my-crypto`,
+        element: <AuthGuard><MyCryptoLazy /></AuthGuard>,
+      },
+      {
+        path: `admin`,
+        element: <AdminLazy />,
+      },
+      {
+        path: `about`,
+        element: <AboutLazy />,
+      },
+      {
+        path: `privacy`,
+        element: <PrivacyLazy />,
+      },
+      {
+        path: `contact`,
+        element: <ContactLazy />,
+      },
+      {
+        path: `terms`,
+        element: <TermsServicesLazy />,
+      },
+      {
+        path: `register`,
+        element: <RegisterLazy />,
+      },
+      {
+        path: `login`,
+        element: <LoginLazy />,
+      },
+      {
+        path: `auth`,
+        element: <LoginLazy />,
+      },
+      {
+        path: `market-cap`,
+        element: <HomeLazy />,
+      }
+    ],
+    errorElement: <ErrorPage />,
+  }
+]);
+
 export default function App() {
-  const router = createBrowserRouter([
-    {
-      path: `/`,
-      element: <Layout />,
-      children: [
-        {
-          path: `/`,
-          element: <HomeLazy />,
-        },
-        {
-          path: `crypto`,
-          element: <CryptoLazy />,
-        },
-        {
-          path: `crypto/:id`,
-          element: <DetailsLazy />,
-        },
-        {
-          path: `/my-crypto`,
-          element: <AuthGuard><MyCryptoLazy /></AuthGuard>,
-        },
-        {
-          path: `admin`,
-          element: <AdminLazy />,
-        },
-        {
-          path: `about`,
-          element: <AboutLazy />,
-        },
-        {
-          path: `privacy`,
-          element: <PrivacyLazy />,
-        },
-        {
-          path: `contact`,
-          element: <ContactLazy />,
-        },
-        {
-          path: `terms`,
-          element: <TermsServicesLazy />,
-        },
-        {
-          path: `register`,
-          element: <RegisterLazy />,
-        },
-        {
-          path: `login`,
-          element: <LoginLazy />,
-        },
-        {
-          path: `auth`,
-          element: <LoginLazy />,
-        },
-        {
-          path: `market-cap`,
-          element: <HomeLazy />,
-        }
-      ],
-      errorElement: <ErrorPage />,
-    }
-  ])
   return (
     <AuthProvider> {/* Wrap the application with AuthProvider */}
       <DarkModeProvider> {/* Wrap the application with DarkModeProvider */}
