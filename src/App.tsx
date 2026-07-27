@@ -1,4 +1,4 @@
-import React, { lazy } from 'react';
+import { lazy } from 'react';
 import './App.scss';
 import { createBrowserRouter, RouterProvider } from 'react-router';
 import Layout from './pages/Header/Layout';
@@ -52,7 +52,7 @@ export default function App() {
           path: `admin`,
           element: <AdminRoute />,
         },
-         {
+        {
           path: `about`,
           element: <AboutRoute />,
         },
@@ -64,11 +64,11 @@ export default function App() {
           path: `contact`,
           element: <ContactRoute />,
         },
-          {
+        {
           path: `terms`,
           element: <TermsServicesRoute />,
         },
-         {
+        {
           path: `register`,
           element: <RegisterRoute />,
         },
@@ -76,7 +76,7 @@ export default function App() {
           path: `login`,
           element: <LoginRoute />,
         },
-         {
+        {
           path: `auth`,
           element: <LoginRoute />,
         },

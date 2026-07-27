@@ -1,9 +1,8 @@
-import React from 'react';
 import './Privacy.scss';
 import { useNavigate } from 'react-router-dom';
 
 export default function Privacy() {
-     const navigate = useNavigate();
+  const navigate = useNavigate();
   return (
     <div className="privacy-policy-container">
       <h1>Privacy Policy</h1>
@@ -97,7 +96,7 @@ export default function Privacy() {
       </p>
       <ul>
         <li>By email: cryptotest@mail.com</li>
-        <li>By visiting this page : <span  className='navigattoConact' onClick={() => navigate('/contact')}>Contact Us</span></li>
+        <li>By visiting this page : <span className='navigattoConact' onClick={() => navigate('/contact')}>Contact Us</span></li>
       </ul>
 
       <p><strong>Please Note:</strong> This is a template Privacy Policy. You must review and customize it to accurately reflect your application's data collection, usage, and disclosure practices, and ensure compliance with all applicable laws and regulations (e.g., GDPR, CCPA).</p>

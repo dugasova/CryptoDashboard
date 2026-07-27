@@ -1,4 +1,3 @@
-import React from 'react';
 import { NavLink } from 'react-router';
 import './Menu.scss';
 
@@ -17,7 +16,7 @@ export default function Menu() {
     //   path: '/crypto',
     //   title: 'Crypto',
     // },
-      {
+    {
       path: '/crypto/:id',
       title: 'Details',
     },
@@ -32,7 +31,7 @@ export default function Menu() {
       <ul className='menu__list'>
         {routes.map((item, index) => (
           <li className='menu__list-item' key={index}>
-            <NavLink 
+            <NavLink
               to={item.path}>{item.title}
             </NavLink>
           </li>

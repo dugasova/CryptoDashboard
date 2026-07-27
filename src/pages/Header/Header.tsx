@@ -1,4 +1,3 @@
-import React from 'react';
 import Menu from '../../components/Menu/Menu';
 import Logo from '../../assets/Bitcoin.svg.webp';
 import './Header.scss';

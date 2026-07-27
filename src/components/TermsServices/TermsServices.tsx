@@ -1,4 +1,3 @@
-import React from 'react';
 import './TermsServices.scss';
 
 export default function TermsServices() {
