@@ -44,35 +44,35 @@ export default function App() {
         },
         {
           path: `admin`,
-          element: <AdminRoute />,
+          element: <AdminRouteLazy />,
         },
         {
           path: `about`,
-          element: <AboutRoute />,
+          element: <AboutRouteLazy />,
         },
         {
           path: `privacy`,
-          element: <PrivacyRoute />,
+          element: <PrivacyRouteLazy />,
         },
         {
           path: `contact`,
-          element: <ContactRoute />,
+          element: <ContactRouteLazy />,
         },
         {
           path: `terms`,
-          element: <TermsServicesRoute />,
+          element: <TermsServicesRouteLazy />,
         },
         {
           path: `register`,
-          element: <RegisterRoute />,
+          element: <RegisterRouteLazy />,
         },
         {
           path: `login`,
-          element: <LoginRoute />,
+          element: <LoginRouteLazy />,
         },
         {
           path: `auth`,
-          element: <LoginRoute />,
+          element: <LoginRouteLazy />,
         },
         {
           path: `market-cap`,
