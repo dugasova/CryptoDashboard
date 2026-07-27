@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { getCoinList } from '../services/cryptos';
+import { getCoinList, ApiError } from '../services/cryptos';
 import type { StateCreator } from 'zustand';
 import type { CoinData } from '../types/cryptoTypes';
 import { persist, createJSONStorage } from 'zustand/middleware';
@@ -42,7 +42,8 @@ const useCryptoStore: StateCreator<CryptoState> = (set, get) => ({
       // whether more pages exist from whether this page came back full.
       set({ coins: data, hasNextPage: data.length === itemsPerPage });
     } catch (err) {
-      set({ error: 'Failed to fetch cryptocurrency data.' });
+      const message = err instanceof ApiError ? err.message : 'Failed to fetch cryptocurrency data.';
+      set({ error: message, coins: [], hasNextPage: false });
       console.error(err);
     } finally {
       set({ loading: false });

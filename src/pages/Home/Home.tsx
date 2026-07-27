@@ -41,7 +41,12 @@ const Home: React.FC = () => {
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return (
+      <div className="home-error">
+        <p>Error: {error}</p>
+        <button onClick={() => fetchCoins()}>Retry</button>
+      </div>
+    );
   }
 
   return (

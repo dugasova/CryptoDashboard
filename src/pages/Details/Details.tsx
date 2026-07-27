@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getCoinDetails } from '../../services/cryptos';
+import { getCoinDetails, ApiError } from '../../services/cryptos';
 import './Details.scss';
 import { Tooltip } from 'react-tooltip';
 
@@ -26,6 +26,7 @@ const Details: React.FC = () => {
   const [coinDetails, setCoinDetails] = useState<CoinDetailsData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [retryCount, setRetryCount] = useState(0);
 
   useEffect(() => {
     const fetchDetails = async () => {
@@ -34,13 +35,10 @@ const Details: React.FC = () => {
       setError(null);
       try {
         const data = await getCoinDetails(id);
-        if (data) {
-          setCoinDetails(data);
-        } else {
-          setError('Cryptocurrency details not found.');
-        }
+        setCoinDetails(data);
       } catch (err) {
-        setError('Failed to fetch cryptocurrency details.');
+        const message = err instanceof ApiError ? err.message : 'Failed to fetch cryptocurrency details.';
+        setError(message);
         console.error(err);
       } finally {
         setLoading(false);
@@ -48,14 +46,19 @@ const Details: React.FC = () => {
     };
 
     fetchDetails();
-  }, [id]);
+  }, [id, retryCount]);
 
   if (loading) {
     return <div>Loading details...</div>;
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return (
+      <div className="details-error">
+        <p>Error: {error}</p>
+        <button onClick={() => setRetryCount((count) => count + 1)}>Retry</button>
+      </div>
+    );
   }
 
   if (!coinDetails) {
