@@ -2,23 +2,23 @@ import { lazy } from 'react';
 import './App.scss';
 import { createBrowserRouter, RouterProvider } from 'react-router';
 import Layout from './pages/Header/Layout';
-import ErrorRoute from './routes/ErrorRoute';
+import ErrorPage from './pages/Error/Error.tsx';
 import { DarkModeProvider } from './context/DarkModeContext.tsx'; // Import DarkModeProvider from the .tsx file
 import { AuthProvider } from './context/AuthContext.tsx';
 import AuthGuard from './HOC/AuthGuard.tsx';
 
-// Lazy load the route components with explicit literal paths so Vite can code-split correctly
-const HomeRouteLazy = lazy(() => import('./routes/HomeRoute.tsx'));
-const CryptoRouteLazy = lazy(() => import('./routes/CryptoRoute.tsx'));
-const DetailsRouteLazy = lazy(() => import('./routes/DetailsRoute.tsx'));
-const MyCryptoRouteLazy = lazy(() => import('./routes/MyCryptoRoute.tsx'));
-const AdminRouteLazy = lazy(() => import('./routes/AdminRoute.tsx'));
-const AboutRouteLazy = lazy(() => import('./routes/AboutRoute.tsx'));
-const PrivacyRouteLazy = lazy(() => import('./routes/PrivacyRoute.tsx'));
-const ContactRouteLazy = lazy(() => import('./routes/ContactRoute.tsx'));
-const TermsServicesRouteLazy = lazy(() => import('./routes/TermsServicesRoute.tsx'));
-const RegisterRouteLazy = lazy(() => import('./routes/RegisterRoute.tsx'));
-const LoginRouteLazy = lazy(() => import('./routes/LoginRoute.tsx'));
+// Lazy load the page components with explicit literal paths so Vite can code-split correctly
+const HomeLazy = lazy(() => import('./pages/Home/Home.tsx'));
+const CryptoLazy = lazy(() => import('./pages/Crypto/Crypto.tsx'));
+const DetailsLazy = lazy(() => import('./pages/Details/Details.tsx'));
+const MyCryptoLazy = lazy(() => import('./pages/MyCrypto/MyCrypto.tsx'));
+const AdminLazy = lazy(() => import('./pages/Admin/Admin.tsx'));
+const AboutLazy = lazy(() => import('./pages/About/About.tsx'));
+const PrivacyLazy = lazy(() => import('./pages/Privacy/Privacy.tsx'));
+const ContactLazy = lazy(() => import('./pages/Contact/Contact.tsx'));
+const TermsServicesLazy = lazy(() => import('./pages/TermsServices/TermsServices.tsx'));
+const RegisterLazy = lazy(() => import('./pages/Register/Register.tsx'));
+const LoginLazy = lazy(() => import('./pages/Login/Login.tsx'));
 
 export default function App() {
   const router = createBrowserRouter([
@@ -28,58 +28,58 @@ export default function App() {
       children: [
         {
           path: `/`,
-          element: <HomeRouteLazy />,
+          element: <HomeLazy />,
         },
         {
           path: `crypto`,
-          element: <CryptoRouteLazy />,
+          element: <CryptoLazy />,
         },
         {
           path: `crypto/:id`,
-          element: <DetailsRouteLazy />,
+          element: <DetailsLazy />,
         },
         {
           path: `/my-crypto`,
-          element: <AuthGuard><MyCryptoRouteLazy /></AuthGuard>,
+          element: <AuthGuard><MyCryptoLazy /></AuthGuard>,
         },
         {
           path: `admin`,
-          element: <AdminRouteLazy />,
+          element: <AdminLazy />,
         },
         {
           path: `about`,
-          element: <AboutRouteLazy />,
+          element: <AboutLazy />,
         },
         {
           path: `privacy`,
-          element: <PrivacyRouteLazy />,
+          element: <PrivacyLazy />,
         },
         {
           path: `contact`,
-          element: <ContactRouteLazy />,
+          element: <ContactLazy />,
         },
         {
           path: `terms`,
-          element: <TermsServicesRouteLazy />,
+          element: <TermsServicesLazy />,
         },
         {
           path: `register`,
-          element: <RegisterRouteLazy />,
+          element: <RegisterLazy />,
         },
         {
           path: `login`,
-          element: <LoginRouteLazy />,
+          element: <LoginLazy />,
         },
         {
           path: `auth`,
-          element: <LoginRouteLazy />,
+          element: <LoginLazy />,
         },
         {
           path: `market-cap`,
-          element: <HomeRouteLazy />,
+          element: <HomeLazy />,
         }
       ],
-      errorElement: <ErrorRoute />,
+      errorElement: <ErrorPage />,
     }
   ])
   return (

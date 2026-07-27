@@ -3,8 +3,8 @@ import { LineChart, Line, ResponsiveContainer } from 'recharts';
 import './Home.scss';
 import useCryptoStore from '../../store/cryptoStore';
 import type { CoinData } from '../../types/cryptoTypes';
-import MarketCapFilter from '../MarketCapFilter/MarketCapFilter';
-import PaginationControls from '../PaginationControls/PaginationControls';
+import MarketCapFilter from '../../components/MarketCapFilter/MarketCapFilter';
+import PaginationControls from '../../components/PaginationControls/PaginationControls';
 import { useNavigate } from 'react-router-dom';
 
 const Home: React.FC = () => {
