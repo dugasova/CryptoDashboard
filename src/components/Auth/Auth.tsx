@@ -11,19 +11,22 @@ export default function Auth() {
     throw new Error('Auth component must be used within an AuthProvider');
   }
 
-  const { isAuth, setIsAuth } = authContext;
+  const { isAuth, username, logout } = authContext;
 
   const handleLogout = () => {
-    setIsAuth(false);
+    logout();
     navigate('/');
   };
 
   return (
     <div className="auth-controls">
       {isAuth ? (
-        <button className="auth-btn" onClick={handleLogout}>
-          Logout
-        </button>
+        <>
+          {username && <span className="auth-username">{username}</span>}
+          <button className="auth-btn" onClick={handleLogout}>
+            Logout
+          </button>
+        </>
       ) : (
         <>
           <Link to="/login" className="auth-btn">

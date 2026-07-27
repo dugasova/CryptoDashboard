@@ -1,6 +1,12 @@
 .auth-controls {
   display: flex;
+  align-items: center;
   gap: 10px; /* Space between buttons */
+}
+
+.auth-username {
+  color: var(--primary-color);
+  font-weight: 600;
 }
 
 .auth-btn {

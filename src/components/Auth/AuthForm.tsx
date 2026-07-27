@@ -18,7 +18,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
     throw new Error('AuthForm must be used within an AuthProvider');
   }
 
-  const { login, register, setIsAuth } = authContext;
+  const { login, register } = authContext;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,11 +35,9 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
     } else { // type === 'register'
       success = await register(username, password);
       if (success) {
-        // Optionally log in the user after successful registration
-        setIsAuth(true);
         navigate('/my-crypto'); // Redirect to a protected route on successful registration
       } else {
-        setError('Registration failed. Please try again.');
+        setError('Username already exists. Please choose another.');
       }
     }
   };
