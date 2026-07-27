@@ -1,54 +1,61 @@
-# React + TypeScript + Vite
+# CryptoDashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React + TypeScript dashboard for browsing live cryptocurrency market data, built on top of the [CoinGecko API](https://www.coingecko.com/en/api). It's a personal project for practicing modern React patterns — routing, global state, auth, and client-side persistence — rather than a production app.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Market overview** — paginated list of coins by market cap, with price, 24h/7d change, volume, and a 7-day sparkline chart.
+- **Market cap filter** — narrow the currently loaded page by min/max market cap.
+- **Coin details** — dedicated page per coin with price, market cap, fully diluted valuation, circulating supply, and description.
+- **My Crypto** — a personal watchlist of selected coins, persisted in `localStorage`.
+- **Authentication** — register/login/logout with per-user credentials hashed (SHA-256 + salt) and stored in `localStorage`; sessions survive a page reload. This is a client-only auth implementation meant for demoing the UX flow, not a real backend.
+- **Dark mode** — toggle with a persisted preference.
+- **Static pages** — About, Contact, Privacy, Terms of Service.
+- **Code-split routing** — every route is lazily loaded via `React.lazy`.
 
-## Expanding the ESLint configuration
+## Tech stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- [React 19](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vite.dev/) for dev server and build
+- [React Router 7](https://reactrouter.com/) (data router)
+- [Zustand](https://github.com/pmndrs/zustand) for state management, with `persist` middleware for `localStorage`-backed slices
+- [Recharts](https://recharts.org/) for the sparkline charts
+- [Sass](https://sass-lang.com/) for styling
+- [ESLint](https://eslint.org/) + [typescript-eslint](https://typescript-eslint.io/)
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Project structure
+
+```
+src/
+  pages/        route-level components (About, Home, Details, MyCrypto, Login, ...)
+  components/   reusable UI pieces (Menu, Footer, Auth widgets, pagination, filters, ...)
+  context/      React context providers (auth, dark mode)
+  store/        Zustand stores
+  services/     API clients (CoinGecko, local auth storage)
+  types/        shared TypeScript types
+  HOC/          route guards (AuthGuard)
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Getting started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+npm install
+npm run dev
 ```
+
+The app runs at `http://localhost:5173` by default.
+
+### Scripts
+
+| Command           | Description                          |
+| ------------------ | ------------------------------------- |
+| `npm run dev`       | Start the Vite dev server with HMR    |
+| `npm run build`     | Type-check and build for production   |
+| `npm run lint`      | Run ESLint                            |
+| `npm run preview`   | Preview the production build locally  |
+
+## Known limitations
+
+- The CoinGecko API key is hardcoded in [`src/services/cryptos.ts`](src/services/cryptos.ts) rather than pulled from an environment variable — fine for a personal/demo project, not something to do in production.
+- CoinGecko's free `/coins/markets` endpoint has no server-side market cap filter, so the market cap filter only narrows the coins on the currently loaded page, not the entire dataset.
+- Authentication is entirely client-side (`localStorage`) with no real backend — anyone with access to the browser's storage can inspect the (hashed) credentials.
