@@ -36,3 +36,12 @@ export interface CoinData {
   price_change_percentage_7d_in_currency: number | null;
   sparkline_in_7d: { price: number[] };
 }
+
+export interface CoinSearchResult {
+  id: string;
+  name: string;
+  symbol: string;
+  market_cap_rank: number | null;
+  thumb: string;
+  large: string;
+}

@@ -1,3 +1,5 @@
+import type { CoinSearchResult } from '../types/cryptoTypes';
+
 const APY_URL =  'https://api.coingecko.com/api/v3';
 const API_KEY = `CG-wkfMVNPvgZ8YuSb2p2Ah2qJk`;
 
@@ -44,6 +46,32 @@ export const getCoinDetails = async (coinId: string) => {
     throw new ApiError('Network error: unable to reach CoinGecko.');
   }
   return parseResponse(response, `Cryptocurrency "${coinId}" not found.`);
+};
+
+// Matches coins by name/ticker. CoinGecko's /search doesn't return price or
+// market cap data, so this only gives back ids to look up via getCoinsByIds.
+export const searchCoins = async (query: string): Promise<CoinSearchResult[]> => {
+  let response: Response;
+  try {
+    response = await fetch(`${APY_URL}/search?query=${encodeURIComponent(query)}&x_cg_demo_api_key=${API_KEY}`);
+  } catch (error) {
+    console.error(`Failed to search coins for "${query}":`, error);
+    throw new ApiError('Network error: unable to reach CoinGecko.');
+  }
+  const data = await parseResponse(response, `No coins found matching "${query}".`);
+  return data.coins ?? [];
+};
+
+export const getCoinsByIds = async (ids: string[]) => {
+  if (ids.length === 0) return [];
+  let response: Response;
+  try {
+    response = await fetch(`${APY_URL}/coins/markets?vs_currency=usd&order=market_cap_desc&ids=${ids.join(',')}&sparkline=true&price_change_percentage=1h%2C24h%2C7d&x_cg_demo_api_key=${API_KEY}`);
+  } catch (error) {
+    console.error('Failed to fetch coins by ids:', error);
+    throw new ApiError('Network error: unable to reach CoinGecko.');
+  }
+  return parseResponse(response, 'Coins not found.');
 };
 
 // https://api.coingecko.com/api/v3/coins/bitcoin?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false&x_cg_demo_api_key=CG-wkfMVNPvgZ8YuSb2p2Ah2qJk

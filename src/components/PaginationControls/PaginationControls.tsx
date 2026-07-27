@@ -8,6 +8,7 @@ const PaginationControls: React.FC = () => {
     currentPage,
     hasNextPage,
     loading,
+    searchQuery,
     setCurrentPage,
   } = useCryptoStore();
 
@@ -23,8 +24,8 @@ const PaginationControls: React.FC = () => {
     }
   };
 
-  // Don't render controls if there's nothing to paginate at all
-  if (coins.length === 0 && currentPage === 1) {
+  // Search results aren't paginated, and there's nothing to paginate when empty
+  if (searchQuery.trim() || (coins.length === 0 && currentPage === 1)) {
     return null;
   }
 

@@ -1,4 +1,7 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../../context/AuthContext';
 import './AuthForm.scss';
@@ -7,10 +10,28 @@ interface AuthFormProps {
   type: 'login' | 'register';
 }
 
+const usernameSchema = z
+  .string()
+  .trim()
+  .min(3, 'Username must be at least 3 characters')
+  .max(20, 'Username must be at most 20 characters')
+  .regex(/^[a-zA-Z0-9_]+$/, 'Username may only contain letters, numbers, and underscores');
+
+// Login only checks that fields were filled in — the actual credentials are
+// verified against stored users. Register enforces the real format rules.
+const loginSchema = z.object({
+  username: z.string().trim().min(1, 'Username is required'),
+  password: z.string().min(1, 'Password is required'),
+});
+
+const registerSchema = z.object({
+  username: usernameSchema,
+  password: z.string().min(6, 'Password must be at least 6 characters'),
+});
+
+type AuthFormValues = z.infer<typeof registerSchema>;
+
 const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const authContext = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -18,56 +39,51 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
     throw new Error('AuthForm must be used within an AuthProvider');
   }
 
-  const { login, register } = authContext;
+  const { login, register: registerUser } = authContext;
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError('');
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors, isSubmitting },
+  } = useForm<AuthFormValues>({
+    resolver: zodResolver(type === 'login' ? loginSchema : registerSchema),
+  });
 
-    let success = false;
-    if (type === 'login') {
-      success = await login(username, password);
-      if (success) {
-        navigate('/my-crypto');
-      } else {
-        setError('Invalid username or password');
-      }
-    } else { // type === 'register'
-      success = await register(username, password);
-      if (success) {
-        navigate('/my-crypto'); // Redirect to a protected route on successful registration
-      } else {
-        setError('Username already exists. Please choose another.');
-      }
+  const onSubmit = async (values: AuthFormValues) => {
+    const success =
+      type === 'login'
+        ? await login(values.username, values.password)
+        : await registerUser(values.username, values.password);
+
+    if (success) {
+      navigate('/my-crypto');
+    } else {
+      setError('root', {
+        message:
+          type === 'login'
+            ? 'Invalid username or password'
+            : 'Username already exists. Please choose another.',
+      });
     }
   };
 
   return (
     <div className="auth-form-container">
       <h2>{type === 'login' ? 'Login' : 'Register'}</h2>
-      <form onSubmit={handleSubmit} className="auth-form">
+      <form onSubmit={handleSubmit(onSubmit)} className="auth-form" noValidate>
         <div className="form-group">
           <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
+          <input type="text" id="username" {...register('username')} />
+          {errors.username && <p className="error-message">{errors.username.message}</p>}
         </div>
         <div className="form-group">
           <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          <input type="password" id="password" {...register('password')} />
+          {errors.password && <p className="error-message">{errors.password.message}</p>}
         </div>
-        {error && <p className="error-message">{error}</p>}
-        <button type="submit" className="submit-btn">
+        {errors.root && <p className="error-message">{errors.root.message}</p>}
+        <button type="submit" className="submit-btn" disabled={isSubmitting}>
           {type === 'login' ? 'Login' : 'Register'}
         </button>
       </form>
