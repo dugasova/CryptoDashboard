@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { LineChart, Line, ResponsiveContainer } from 'recharts';
 import './Home.scss';
 import useCryptoStore from '../../store/cryptoStore';
+import AuthContext from '../../context/AuthContext';
 import type { CoinData } from '../../types/cryptoTypes';
 import MarketCapFilter from '../../components/MarketCapFilter/MarketCapFilter';
 import SearchBar from '../../components/SearchBar/SearchBar';
@@ -10,6 +11,8 @@ import { useNavigate } from 'react-router-dom';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
+  const authContext = useContext(AuthContext);
+  const username = authContext?.username ?? null;
 
   // Use state and actions from the Zustand store
   const {
@@ -119,7 +122,13 @@ const Home: React.FC = () => {
                     )}
                   </td>
                   <td>
-                    <button onClick={(e) => { e.stopPropagation(); addSelectedCoin(coin); }}>Add to My Crypto</button>
+                    <button
+                      onClick={(e) => { e.stopPropagation(); if (username) addSelectedCoin(username, coin); }}
+                      disabled={!username}
+                      title={username ? undefined : 'Log in to save coins to My Crypto'}
+                    >
+                      Add to My Crypto
+                    </button>
                   </td>
                 </tr>
               ))}

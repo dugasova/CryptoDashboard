@@ -1,12 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useCryptoStore from '../../store/cryptoStore';
+import AuthContext from '../../context/AuthContext';
 import type { CoinData } from '../../types/cryptoTypes';
 import './MyCrypto.scss';
 
 const MyCrypto: React.FC = () => {
-  const { selectedCoins, removeSelectedCoin } = useCryptoStore();
+  const { selectedCoinsByUser, removeSelectedCoin } = useCryptoStore();
   const navigate = useNavigate();
+  const authContext = useContext(AuthContext);
+
+  if (!authContext?.username) {
+    // AuthGuard keeps unauthenticated users out before this ever renders.
+    throw new Error('MyCrypto must be used within an AuthProvider by a logged-in user');
+  }
+  const { username } = authContext;
+  const selectedCoins = selectedCoinsByUser[username] ?? [];
 
   return (
     <div className="my-crypto-container">
@@ -38,7 +47,7 @@ const MyCrypto: React.FC = () => {
                 </td>
                 <td>${coin.total_volume.toLocaleString()}</td>
                 <td>
-                  <button onClick={(e) => { e.stopPropagation(); removeSelectedCoin(coin.id); }}>Remove</button>
+                  <button onClick={(e) => { e.stopPropagation(); removeSelectedCoin(username, coin.id); }}>Remove</button>
                 </td>
               </tr>
             ))}

@@ -14,14 +14,15 @@ interface CryptoState {
   minMarketCap: number | '';
   maxMarketCap: number | '';
   searchQuery: string;
-  selectedCoins: CoinData[];
+  // Keyed by username so each account has its own watchlist in shared localStorage.
+  selectedCoinsByUser: Record<string, CoinData[]>;
   fetchCoins: () => Promise<void>;
   setCurrentPage: (page: number) => void;
   setMinMarketCap: (min: number | '') => void;
   setMaxMarketCap: (max: number | '') => void;
   setSearchQuery: (query: string) => void;
-  addSelectedCoin: (coin: CoinData) => void;
-  removeSelectedCoin: (coinId: string) => void;
+  addSelectedCoin: (username: string, coin: CoinData) => void;
+  removeSelectedCoin: (username: string, coinId: string) => void;
 }
 
 const useCryptoStore: StateCreator<CryptoState> = (set, get) => ({
@@ -34,7 +35,7 @@ const useCryptoStore: StateCreator<CryptoState> = (set, get) => ({
   minMarketCap: '',
   maxMarketCap: '',
   searchQuery: '',
-  selectedCoins: [],
+  selectedCoinsByUser: {},
 
   fetchCoins: async () => {
     set({ loading: true, error: null });
@@ -68,18 +69,27 @@ const useCryptoStore: StateCreator<CryptoState> = (set, get) => ({
   setMaxMarketCap: (max: number | '') => set({ maxMarketCap: max, currentPage: 1 }),
   setSearchQuery: (query: string) => set({ searchQuery: query, currentPage: 1 }),
 
-  addSelectedCoin: (coin: CoinData) => {
-    set(state => {
-      if (!state.selectedCoins.find(selected => selected.id === coin.id)) {
-        return { selectedCoins: [...state.selectedCoins, coin] };
+  addSelectedCoin: (username: string, coin: CoinData) => {
+    set((state) => {
+      const existing = state.selectedCoinsByUser[username] ?? [];
+      if (existing.some((selected) => selected.id === coin.id)) {
+        return state;
       }
-      return state;
+      return {
+        selectedCoinsByUser: {
+          ...state.selectedCoinsByUser,
+          [username]: [...existing, coin],
+        },
+      };
     });
   },
 
-  removeSelectedCoin: (coinId: string) => {
-    set(state => ({
-      selectedCoins: state.selectedCoins.filter(coin => coin.id !== coinId),
+  removeSelectedCoin: (username: string, coinId: string) => {
+    set((state) => ({
+      selectedCoinsByUser: {
+        ...state.selectedCoinsByUser,
+        [username]: (state.selectedCoinsByUser[username] ?? []).filter((coin) => coin.id !== coinId),
+      },
     }));
   },
 });
@@ -93,7 +103,7 @@ export default create<CryptoState>()(
       storage: createJSONStorage(() => localStorage), // use localStorage
       // Optionally, specify which parts of the state to persist
       partialize: (state) => ({
-        selectedCoins: state.selectedCoins, // Persist selected coins
+        selectedCoinsByUser: state.selectedCoinsByUser, // Persist each user's selected coins
       }),
     }
   )
