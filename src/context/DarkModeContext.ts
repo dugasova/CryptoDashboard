@@ -1,4 +1,8 @@
 import { createContext } from 'react';
-import type { DarkModeContextType } from './DarkModeContext.tsx';
+
+export interface DarkModeContextType {
+  darkMode: boolean;
+  toggleDarkMode: () => void;
+}
 
 export const DarkModeContext = createContext<DarkModeContextType | undefined>(undefined);

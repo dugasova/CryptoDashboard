@@ -4,27 +4,21 @@ import { createBrowserRouter, RouterProvider } from 'react-router';
 import Layout from './pages/Header/Layout';
 import ErrorRoute from './routes/ErrorRoute';
 import { DarkModeProvider } from './context/DarkModeContext.tsx'; // Import DarkModeProvider from the .tsx file
-import AdminRoute from './routes/AdminRoute.tsx';
 import { AuthProvider } from './context/AuthContext.tsx';
 import AuthGuard from './HOC/AuthGuard.tsx';
-import AboutRoute from './routes/AboutRoute.tsx';
-import PrivacyRoute from './routes/PrivacyRoute.tsx';
-import ContactRoute from './routes/ContactRoute.tsx';
-import TermsServicesRoute from './routes/TermsServicesRoute.tsx';
-import RegisterRoute from './routes/RegisterRoute.tsx';
-import LoginRoute from './routes/LoginRoute.tsx';
 
-
-// Universal function for lazy loading routes
-const lazyLoadRoute = (routePath: string) => {
-  return lazy(() => import(`./routes/${routePath}.tsx`));
-};
-
-// Lazy load the route components using the universal function
-const HomeRouteLazy = lazyLoadRoute('HomeRoute');
-const CryptoRouteLazy = lazyLoadRoute('CryptoRoute');
-const DetailsRouteLazy = lazyLoadRoute('DetailsRoute');
-const MyCryptoRouteLazy = lazyLoadRoute('MyCryptoRoute');
+// Lazy load the route components with explicit literal paths so Vite can code-split correctly
+const HomeRouteLazy = lazy(() => import('./routes/HomeRoute.tsx'));
+const CryptoRouteLazy = lazy(() => import('./routes/CryptoRoute.tsx'));
+const DetailsRouteLazy = lazy(() => import('./routes/DetailsRoute.tsx'));
+const MyCryptoRouteLazy = lazy(() => import('./routes/MyCryptoRoute.tsx'));
+const AdminRouteLazy = lazy(() => import('./routes/AdminRoute.tsx'));
+const AboutRouteLazy = lazy(() => import('./routes/AboutRoute.tsx'));
+const PrivacyRouteLazy = lazy(() => import('./routes/PrivacyRoute.tsx'));
+const ContactRouteLazy = lazy(() => import('./routes/ContactRoute.tsx'));
+const TermsServicesRouteLazy = lazy(() => import('./routes/TermsServicesRoute.tsx'));
+const RegisterRouteLazy = lazy(() => import('./routes/RegisterRoute.tsx'));
+const LoginRouteLazy = lazy(() => import('./routes/LoginRoute.tsx'));
 
 export default function App() {
   const router = createBrowserRouter([
