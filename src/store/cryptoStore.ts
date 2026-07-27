@@ -10,6 +10,7 @@ interface CryptoState {
   error: string | null;
   currentPage: number;
   itemsPerPage: number;
+  hasNextPage: boolean;
   minMarketCap: number | '';
   maxMarketCap: number | '';
   selectedCoins: CoinData[];
@@ -21,12 +22,13 @@ interface CryptoState {
   removeSelectedCoin: (coinId: string) => void;
 }
 
-const useCryptoStore: StateCreator<CryptoState> = (set) => ({
+const useCryptoStore: StateCreator<CryptoState> = (set, get) => ({
   coins: [],
   loading: false,
   error: null,
   currentPage: 1,
   itemsPerPage: 25,
+  hasNextPage: true,
   minMarketCap: '',
   maxMarketCap: '',
   selectedCoins: [],
@@ -34,8 +36,11 @@ const useCryptoStore: StateCreator<CryptoState> = (set) => ({
   fetchCoins: async () => {
     set({ loading: true, error: null });
     try {
-      const data = await getCoinList(1, 250);
-      set({ coins: data });
+      const { currentPage, itemsPerPage } = get();
+      const data = await getCoinList(currentPage, itemsPerPage);
+      // CoinGecko's /coins/markets doesn't return a total count, so we infer
+      // whether more pages exist from whether this page came back full.
+      set({ coins: data, hasNextPage: data.length === itemsPerPage });
     } catch (err) {
       set({ error: 'Failed to fetch cryptocurrency data.' });
       console.error(err);

@@ -1,29 +1,18 @@
 import React from 'react';
 import useCryptoStore from '../../store/cryptoStore';
-import type { CoinData } from '../../types/cryptoTypes';
 import './PaginationControls.scss';
 
 const PaginationControls: React.FC = () => {
   const {
     coins,
     currentPage,
-    itemsPerPage,
-    minMarketCap,
-    maxMarketCap,
+    hasNextPage,
+    loading,
     setCurrentPage,
   } = useCryptoStore();
 
-  // Filter coins based on market cap input (same logic as in Home.tsx)
-  const filteredCoins = coins.filter((coin: CoinData) => {
-    const min = typeof minMarketCap === 'number' ? minMarketCap : 0;
-    const max = typeof maxMarketCap === 'number' ? maxMarketCap : Infinity;
-    return coin.market_cap >= min && coin.market_cap <= max;
-  });
-
-  const totalPages = Math.ceil(filteredCoins.length / itemsPerPage);
-
   const handleNextPage = () => {
-    if (currentPage < totalPages) {
+    if (hasNextPage) {
       setCurrentPage(currentPage + 1);
     }
   };
@@ -34,16 +23,16 @@ const PaginationControls: React.FC = () => {
     }
   };
 
-  // Don't render controls if there are no filtered coins or only one page
-  if (filteredCoins.length === 0 || totalPages <= 1) {
+  // Don't render controls if there's nothing to paginate at all
+  if (coins.length === 0 && currentPage === 1) {
     return null;
   }
 
   return (
     <div className="pagination-controls">
-      <button onClick={handlePreviousPage} disabled={currentPage === 1}>Previous</button>
-      <span>Page {currentPage} of {totalPages}</span>
-      <button onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
+      <button onClick={handlePreviousPage} disabled={currentPage === 1 || loading}>Previous</button>
+      <span>Page {currentPage}</span>
+      <button onClick={handleNextPage} disabled={!hasNextPage || loading}>Next</button>
     </div>
   );
 };

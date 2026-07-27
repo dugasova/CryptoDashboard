@@ -61,7 +61,6 @@ const Details: React.FC = () => {
   if (!coinDetails) {
     return <div>No details available.</div>;
   }
-  console.log(coinDetails);
 
   return (
     <div className="details-container">

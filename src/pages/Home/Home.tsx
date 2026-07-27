@@ -16,7 +16,6 @@ const Home: React.FC = () => {
     loading,
     error,
     currentPage,
-    itemsPerPage,
     minMarketCap,
     maxMarketCap,
     fetchCoins,
@@ -24,21 +23,18 @@ const Home: React.FC = () => {
   } = useCryptoStore();
 
   useEffect(() => {
-    // Fetch coins when the component mounts
+    // Coins are paginated server-side, so re-fetch whenever the page changes
     fetchCoins();
-  }, [fetchCoins]);
+  }, [fetchCoins, currentPage]);
 
-  // Filter coins based on market cap input
+  // The min/max market cap filter narrows the coins already loaded for this
+  // page — CoinGecko's /coins/markets endpoint has no server-side market cap
+  // filter, so a page can legitimately show fewer rows (or none) than usual.
   const filteredCoins = coins.filter((coin: CoinData) => {
     const min = typeof minMarketCap === 'number' ? minMarketCap : 0;
     const max = typeof maxMarketCap === 'number' ? maxMarketCap : Infinity;
     return coin.market_cap >= min && coin.market_cap <= max;
   });
-
-  // Implement pagination on the filtered coins
-  const indexOfLastCoin = currentPage * itemsPerPage;
-  const indexOfFirstCoin = indexOfLastCoin - itemsPerPage;
-  const currentCoins = filteredCoins.slice(indexOfFirstCoin, indexOfLastCoin);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -53,6 +49,10 @@ const Home: React.FC = () => {
       <h1>Cryptocurrency Prices by Market Cap</h1>
 
       <MarketCapFilter />
+
+      {filteredCoins.length === 0 && (
+        <p>No coins on this page match the market cap filter — try Next/Previous or widen the range.</p>
+      )}
 
       <table className="coin-table">
         <thead>
@@ -70,7 +70,7 @@ const Home: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {currentCoins.map((coin: CoinData) => (
+          {filteredCoins.map((coin: CoinData) => (
             <tr
               key={coin.id}
               onClick={() => navigate(`/crypto/${coin.id}`)}
