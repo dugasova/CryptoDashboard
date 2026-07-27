@@ -16,10 +16,6 @@ export default function Menu() {
     //   path: '/crypto',
     //   title: 'Crypto',
     // },
-    {
-      path: '/crypto/:id',
-      title: 'Details',
-    },
     //    {
     //   path: '/admin',
     //   title: 'Admin',
