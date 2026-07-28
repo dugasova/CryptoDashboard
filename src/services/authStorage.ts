@@ -50,6 +50,14 @@ export function userExists(username: string): boolean {
   return getUsers().some((user) => user.username === username);
 }
 
+export function getUsernames(): string[] {
+  return getUsers().map((user) => user.username);
+}
+
+export function deleteUser(username: string): void {
+  saveUsers(getUsers().filter((user) => user.username !== username));
+}
+
 export function saveSession(username: string): void {
   localStorage.setItem(SESSION_KEY, username);
 }

@@ -12,15 +12,10 @@ export default function Menu() {
       path: '/my-crypto',
       title: 'My Crypto',
     },
-    // {
-    //   path: '/crypto',
-    //   title: 'Crypto',
-    // },
-    //    {
-    //   path: '/admin',
-    //   title: 'Admin',
-    // },
-
+    {
+      path: '/admin',
+      title: 'Admin',
+    },
   ]
   return (
     <nav className="menu">

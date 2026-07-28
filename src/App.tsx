@@ -45,7 +45,7 @@ const router = createBrowserRouter([
       },
       {
         path: `admin`,
-        element: <AdminLazy />,
+        element: <AuthGuard><AdminLazy /></AuthGuard>,
       },
       {
         path: `about`,

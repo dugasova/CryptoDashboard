@@ -23,6 +23,7 @@ interface CryptoState {
   setSearchQuery: (query: string) => void;
   addSelectedCoin: (username: string, coin: CoinData) => void;
   removeSelectedCoin: (username: string, coinId: string) => void;
+  removeUserCoins: (username: string) => void;
 }
 
 const useCryptoStore: StateCreator<CryptoState> = (set, get) => ({
@@ -91,6 +92,15 @@ const useCryptoStore: StateCreator<CryptoState> = (set, get) => ({
         [username]: (state.selectedCoinsByUser[username] ?? []).filter((coin) => coin.id !== coinId),
       },
     }));
+  },
+
+  removeUserCoins: (username: string) => {
+    set((state) => {
+      if (!(username in state.selectedCoinsByUser)) return state;
+      const selectedCoinsByUser = { ...state.selectedCoinsByUser };
+      delete selectedCoinsByUser[username];
+      return { selectedCoinsByUser };
+    });
   },
 });
 

@@ -1,0 +1,122 @@
+.admin-container {
+  padding: 20px;
+
+  h1 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+
+  .admin-subtitle {
+    color: var(--text-color-secondary);
+    margin-bottom: 20px;
+  }
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+
+  th,
+  td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--text-color-tertiary-light);
+  }
+
+  th {
+    background-color: var(--background-color-primary-light);
+    font-weight: 600;
+    color: var(--text-color-secondary);
+  }
+
+  tbody tr:hover {
+    background-color: var(--background-color-primary-light);
+  }
+
+  .admin-empty {
+    color: var(--text-color-tertiary-light);
+    font-style: italic;
+  }
+
+  .admin-badge {
+    margin-left: 10px;
+    padding: 2px 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+    background-color: var(--primary-color);
+    border-radius: 999px;
+  }
+
+  .admin-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    text-align: right;
+  }
+
+  .admin-confirm-text {
+    font-size: 14px;
+    color: var(--text-color-secondary);
+    white-space: nowrap;
+  }
+
+  .admin-btn {
+    padding: 8px 16px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    background-color: var(--background-color-secondary);
+    color: var(--text-color-primary);
+    border: 1px solid var(--text-color-tertiary-light);
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: var(--background-color-primary-light);
+    }
+
+    &--danger {
+      background-color: #e0403a;
+      color: white;
+      border: none;
+
+      &:hover {
+        background-color: #c8322d;
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    .admin-actions {
+      flex-wrap: wrap;
+      justify-content: flex-start;
+    }
+  }
+}
+
+body.dark-mode .admin-table {
+  th {
+    background-color: var(--background-color-secondary-dark);
+  }
+
+  th,
+  td {
+    border-color: var(--background-color-secondary-dark);
+  }
+
+  tbody tr:hover {
+    background-color: var(--background-color-secondary-dark);
+  }
+
+  .admin-btn {
+    border-color: var(--text-color-secondary-dark);
+
+    &:hover {
+      background-color: var(--background-color-secondary-dark);
+    }
+  }
+}

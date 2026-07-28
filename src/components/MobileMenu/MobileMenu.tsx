@@ -8,6 +8,7 @@ import './MobileMenu.scss';
 const routes = [
   { path: '/', title: 'Home' },
   { path: '/my-crypto', title: 'My Crypto' },
+  { path: '/admin', title: 'Admin' },
 ];
 
 export default function MobileMenu() {
