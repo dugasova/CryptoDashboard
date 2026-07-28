@@ -45,3 +45,9 @@ export interface CoinSearchResult {
   thumb: string;
   large: string;
 }
+
+export interface CoinMarketChart {
+  prices: [number, number][];
+  market_caps: [number, number][];
+  total_volumes: [number, number][];
+}

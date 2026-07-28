@@ -1,4 +1,4 @@
-import type { CoinSearchResult } from '../types/cryptoTypes';
+import type { CoinSearchResult, CoinMarketChart } from '../types/cryptoTypes';
 
 const APY_URL =  'https://api.coingecko.com/api/v3';
 const API_KEY = `CG-wkfMVNPvgZ8YuSb2p2Ah2qJk`;
@@ -60,6 +60,17 @@ export const searchCoins = async (query: string): Promise<CoinSearchResult[]> =>
   }
   const data = await parseResponse(response, `No coins found matching "${query}".`);
   return data.coins ?? [];
+};
+
+export const getCoinMarketChart = async (coinId: string, days: number): Promise<CoinMarketChart> => {
+  let response: Response;
+  try {
+    response = await fetch(`${APY_URL}/coins/${coinId}/market_chart?vs_currency=usd&days=${days}&x_cg_demo_api_key=${API_KEY}`);
+  } catch (error) {
+    console.error(`Failed to fetch market chart for ${coinId}:`, error);
+    throw new ApiError('Network error: unable to reach CoinGecko.');
+  }
+  return parseResponse(response, `Price history for "${coinId}" not found.`);
 };
 
 export const getCoinsByIds = async (ids: string[]) => {

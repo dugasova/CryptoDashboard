@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { LineChart, Line, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, YAxis, ResponsiveContainer } from 'recharts';
 import './Home.scss';
 import useCryptoStore from '../../store/cryptoStore';
 import AuthContext from '../../context/AuthContext';
@@ -110,10 +110,15 @@ const Home: React.FC = () => {
                     {coin.sparkline_in_7d?.price && (
                       <ResponsiveContainer width="100%" height={70}>
                         <LineChart data={coin.sparkline_in_7d.price.map((price: number, index: number) => ({ price, day: index }))}>
+                          <YAxis hide domain={['dataMin', 'dataMax']} />
                           <Line
                             type="monotone"
                             dataKey="price"
-                            stroke="#8884d8"
+                            stroke={
+                              coin.sparkline_in_7d.price[coin.sparkline_in_7d.price.length - 1] >= coin.sparkline_in_7d.price[0]
+                                ? 'green'
+                                : 'red'
+                            }
                             strokeWidth={2}
                             dot={false}
                           />
@@ -136,8 +141,6 @@ const Home: React.FC = () => {
           </table>
         </>
       )}
-
-      {/* Render the separate PaginationControls component */}
       <PaginationControls />
     </div>
   );

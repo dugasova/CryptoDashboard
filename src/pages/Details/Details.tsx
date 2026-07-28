@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getCoinDetails, ApiError } from '../../services/cryptos';
+import PriceHistoryChart from './PriceHistoryChart';
 import './Details.scss';
 import { Tooltip } from 'react-tooltip';
 
@@ -74,6 +75,8 @@ const Details: React.FC = () => {
         </h2>
       </div>
       <br />
+      <hr />
+      <PriceHistoryChart coinId={coinDetails.id} />
       <hr />
       <div className="details-info">
         <div>
