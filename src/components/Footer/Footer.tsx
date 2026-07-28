@@ -38,6 +38,10 @@ export default function Footer() {
     {
       path: '/terms',
       title: 'Terms of Service',
+    },
+    {
+      path: '/admin',
+      title: 'Admin',
     }
 
   ]
