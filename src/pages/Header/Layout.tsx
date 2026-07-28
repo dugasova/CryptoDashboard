@@ -8,7 +8,7 @@ export default function Layout() {
   return (
     <>
       <Header />
-      <main>
+      <main className="App">
         <Suspense fallback={<SkeletonLoader />}><Outlet /></Suspense>
       </main>
       <Footer />

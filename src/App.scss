@@ -7,16 +7,10 @@ body {
 }
 
 .App {
-  padding: 20px;
-  max-width: 1200px;
+  padding: 0 20px;
+  max-width: 1640px;
+  width: 100%;
   margin: 0 auto;
-}
-
-.app {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
 }
 
 /* Dark mode styles */

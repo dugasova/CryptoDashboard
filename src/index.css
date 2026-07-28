@@ -1,6 +1,6 @@
 :root {
     --primary-color: #539be8;
-    --accent-color: #3e5b7a; 
+    --accent-color: #3e5b7a;
 
     /* Light Mode Colors */
     --background-color-primary-light: #f4f7f6;
@@ -8,8 +8,10 @@
     --text-color-primary-light: #333;
     --text-color-secondary-light: #555;
     --text-color-tertiary-light: #6c757d;
-    --input-background-light: #e0e0e0; /* New: Input background for light mode */
-    --input-text-color-light: #333; /* New: Input text color for light mode */
+    --input-background-light: #e0e0e0;
+    /* New: Input background for light mode */
+    --input-text-color-light: #333;
+    /* New: Input text color for light mode */
 
     /* Dark Mode Colors */
     --background-color-primary-dark: #1a202c;
@@ -17,8 +19,10 @@
     --text-color-primary-dark: #e2e8f0;
     --text-color-secondary-dark: #e2e8f0;
     --text-color-tertiary-dark: #a0aec0;
-    --input-background-dark: #3a475c; /* New: Input background for dark mode */
-    --input-text-color-dark: #e2e8f0; /* New: Input text color for dark mode */
+    --input-background-dark: #3a475c;
+    /* New: Input background for dark mode */
+    --input-text-color-dark: #e2e8f0;
+    /* New: Input text color for dark mode */
 }
 
 /* Default (Light Mode) Variables */
@@ -28,8 +32,10 @@ body {
     --text-color-primary: var(--text-color-primary-light);
     --text-color-secondary: var(--text-color-secondary-light);
     --text-color-tertiary: var(--text-color-tertiary-light);
-    --input-background: var(--input-background-light); /* Default input background */
-    --input-text-color: var(--input-text-color-light); /* Default input text color */
+    --input-background: var(--input-background-light);
+    /* Default input background */
+    --input-text-color: var(--input-text-color-light);
+    /* Default input text color */
 }
 
 /* Dark Mode Overrides */
@@ -39,20 +45,26 @@ body.dark-mode {
     --text-color-primary: var(--text-color-primary-dark);
     --text-color-secondary: var(--text-color-secondary-dark);
     --text-color-tertiary: var(--text-color-tertiary-dark);
-    --input-background: var(--input-background-dark); /* Dark mode input background */
-    --input-text-color: var(--input-text-color-dark); /* Dark mode input text color */
+    --input-background: var(--input-background-dark);
+    /* Dark mode input background */
+    --input-text-color: var(--input-text-color-dark);
+    /* Dark mode input text color */
 }
 
-* {
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
 ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
+
 a {
     text-decoration: none;
 }
