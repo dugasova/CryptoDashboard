@@ -3,6 +3,7 @@ import Logo from '../../assets/Bitcoin.svg.webp';
 import './Header.scss';
 import Auth from '../../components/Auth/Auth';
 import ToggleSwitch from '../../components/ToggleSwitch/ToggleSwitch';
+import MobileMenu from '../../components/MobileMenu/MobileMenu';
 import { useNavigate } from 'react-router-dom';
 import { useDarkMode } from '../../hooks/useDarkMode';
 
@@ -23,6 +24,7 @@ export default function Header() {
           <ToggleSwitch />
         </div>
       </div>
+      <MobileMenu />
     </header>
   )
 }
