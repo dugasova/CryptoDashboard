@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useNavigate } from 'react-router-dom';
-import AuthContext from '../../context/AuthContext';
+import { useAuth } from '../../hooks/useAuth';
 import './AuthForm.scss';
 
 interface AuthFormProps {
@@ -32,14 +32,8 @@ const registerSchema = z.object({
 type AuthFormValues = z.infer<typeof registerSchema>;
 
 const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
-  const authContext = useContext(AuthContext);
+  const { login, register: registerUser } = useAuth();
   const navigate = useNavigate();
-
-  if (!authContext) {
-    throw new Error('AuthForm must be used within an AuthProvider');
-  }
-
-  const { login, register: registerUser } = authContext;
 
   const {
     register,

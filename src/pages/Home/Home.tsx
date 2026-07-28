@@ -1,8 +1,8 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { LineChart, Line, YAxis, ResponsiveContainer } from 'recharts';
 import './Home.scss';
 import useCryptoStore from '../../store/cryptoStore';
-import AuthContext from '../../context/AuthContext';
+import { useAuth } from '../../hooks/useAuth';
 import type { CoinData } from '../../types/cryptoTypes';
 import MarketCapFilter from '../../components/MarketCapFilter/MarketCapFilter';
 import SearchBar from '../../components/SearchBar/SearchBar';
@@ -11,8 +11,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
-  const authContext = useContext(AuthContext);
-  const username = authContext?.username ?? null;
+  const { username } = useAuth();
 
   // Use state and actions from the Zustand store
   const {

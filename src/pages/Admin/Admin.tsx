@@ -1,17 +1,14 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AuthContext from '../../context/AuthContext';
+import { useAuth } from '../../hooks/useAuth';
 import useCryptoStore from '../../store/cryptoStore';
 import { getUsernames, deleteUser } from '../../services/authStorage';
 import './Admin.scss';
 
 export default function Admin() {
-  const authContext = useContext(AuthContext);
+  const { username: currentUsername, logout } = useAuth();
   const { selectedCoinsByUser, removeUserCoins } = useCryptoStore();
   const navigate = useNavigate();
-
-  if (!authContext) throw new Error('Admin must be used within an AuthProvider');
-  const { username: currentUsername, logout } = authContext;
 
   const [users, setUsers] = useState<string[]>(() => getUsernames());
   const [pendingDelete, setPendingDelete] = useState<string | null>(null);

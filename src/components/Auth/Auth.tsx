@@ -1,17 +1,10 @@
-import { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import AuthContext from '../../context/AuthContext';
+import { useAuth } from '../../hooks/useAuth';
 import './Auth.scss';
 
 export default function Auth() {
-  const authContext = useContext(AuthContext);
+  const { isAuth, username, logout } = useAuth();
   const navigate = useNavigate();
-
-  if (!authContext) {
-    throw new Error('Auth component must be used within an AuthProvider');
-  }
-
-  const { isAuth, username, logout } = authContext;
 
   const handleLogout = () => {
     logout();
