@@ -154,5 +154,21 @@
     td:nth-of-type(8):before { content: "Market Cap"; }
     td:nth-of-type(9):before { content: "Last 7 Days"; }
     td:nth-of-type(10):before { content: "Action"; }
+
+    /* Rich, block-level content (chart, button) can't share the label's
+       50/50 split safely - the chart always fills its 100% width right up
+       to the boundary, leaving no buffer for the label. Stack them instead. */
+    td:nth-of-type(9),
+    td:nth-of-type(10) {
+      padding-left: 15px;
+      text-align: left;
+
+      &:before {
+        position: static;
+        display: block;
+        width: auto;
+        margin-bottom: 8px;
+      }
+    }
   }
 }
