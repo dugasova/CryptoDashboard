@@ -2,12 +2,18 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import useCryptoStore from '../../store/cryptoStore';
+import { useShallow } from 'zustand/react/shallow';
 import { getUsernames, deleteUser } from '../../services/authStorage';
 import './Admin.scss';
 
 export default function Admin() {
   const { username: currentUsername, logout } = useAuth();
-  const { selectedCoinsByUser, removeUserCoins } = useCryptoStore();
+  const { selectedCoinsByUser, removeUserCoins } = useCryptoStore(
+    useShallow((state) => ({
+      selectedCoinsByUser: state.selectedCoinsByUser,
+      removeUserCoins: state.removeUserCoins,
+    }))
+  );
   const navigate = useNavigate();
 
   const [users, setUsers] = useState<string[]>(() => getUsernames());
