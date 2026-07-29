@@ -11,6 +11,18 @@ class ResizeObserverStub {
 }
 window.ResizeObserver ??= ResizeObserverStub;
 
+// jsdom doesn't implement matchMedia either, and MobileMenu queries it on mount.
+window.matchMedia ??= (query: string) => ({
+  matches: false,
+  media: query,
+  onchange: null,
+  addListener: () => {},
+  removeListener: () => {},
+  addEventListener: () => {},
+  removeEventListener: () => {},
+  dispatchEvent: () => false,
+});
+
 // authStorage and the zustand persist middleware both read/write localStorage,
 // so every test needs to start from a clean slate to stay isolated.
 afterEach(() => {

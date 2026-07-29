@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 import './App.scss';
-import { createBrowserRouter, RouterProvider } from 'react-router';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Layout from './pages/Header/Layout';
 import ErrorPage from './pages/Error/Error.tsx';
 import { DarkModeProvider } from './context/DarkModeContext.tsx'; // Import DarkModeProvider from the .tsx file

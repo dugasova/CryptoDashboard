@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { Outlet } from 'react-router';
+import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import SkeletonLoader from '../../components/SkeletonLoader/SkeletonLoader';
 import Footer from '../../components/Footer/Footer';

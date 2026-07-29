@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { NavLink, useLocation } from 'react-router';
+import { NavLink, useLocation } from 'react-router-dom';
 import { HiOutlineBars3, HiOutlineXMark } from 'react-icons/hi2';
 import Auth from '../Auth/Auth';
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
