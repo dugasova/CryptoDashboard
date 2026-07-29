@@ -1,8 +1,6 @@
 import './Privacy.scss';
-import { useNavigate } from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
 export default function Privacy() {
-  const navigate = useNavigate();
   return (
     <div className="privacy-policy-container">
       <h1>Privacy Policy</h1>
@@ -10,7 +8,7 @@ export default function Privacy() {
       <p><em>Last Updated: June 30, 2025</em></p>
 
       <p>
-        This Privacy Policy describes how [Your App Name] ("we," "us," or "our") collects, uses, and discloses your information when you use our cryptocurrency dashboard application (the "Service").
+        This Privacy Policy describes how <span className="brand-name">Crypto</span> ("we," "us," or "our") collects, uses, and discloses your information when you use our cryptocurrency dashboard application (the "Service").
       </p>
 
       <h2>Information We Collect</h2>
@@ -19,13 +17,13 @@ export default function Privacy() {
       </p>
       <ul>
         <li>
-          **Personal Information:** Information that can be used to identify you, such as your name, email address, or other contact information, which you may provide when you register for an account or contact us.
+          <strong>Personal Information:</strong> Information that can be used to identify you, such as your name, email address, or other contact information, which you may provide when you register for an account or contact us.
         </li>
         <li>
-          **Usage Data:** Information about how you access and use the Service, such as your IP address, browser type, operating system, pages viewed, and the dates and times of your visits.
+          <strong>Usage Data:</strong> Information about how you access and use the Service, such as your IP address, browser type, operating system, pages viewed, and the dates and times of your visits.
         </li>
         <li>
-          **Cryptocurrency Data:** Information related to the cryptocurrencies you track or add to your dashboard, such as coin IDs, quantities, or transaction history if you choose to connect external wallets or exchanges (please specify if this is a feature and what data is accessed).
+          <strong>Cryptocurrency Data:</strong> Information related to the cryptocurrencies you track or add to your dashboard, such as coin IDs and quantities in your watchlist.
         </li>
       </ul>
 
@@ -49,16 +47,16 @@ export default function Privacy() {
       </p>
       <ul>
         <li>
-          **With Service Providers:** We may share your information with third-party vendors, service providers, contractors, or agents who perform services for us or on our behalf and require access to such information to do that work.
+          <strong>With Service Providers:</strong> We may share your information with third-party vendors, service providers, contractors, or agents who perform services for us or on our behalf and require access to such information to do that work.
         </li>
         <li>
-          **For Business Transfers:** We may share or transfer your information in connection with, or during negotiations of, any merger, sale of company assets, financing, or acquisition of all or a portion of our business to another company.
+          <strong>For Business Transfers:</strong> We may share or transfer your information in connection with, or during negotiations of, any merger, sale of company assets, financing, or acquisition of all or a portion of our business to another company.
         </li>
         <li>
-          **With Your Consent:** We may disclose your personal information for any other purpose with your consent.
+          <strong>With Your Consent:</strong> We may disclose your personal information for any other purpose with your consent.
         </li>
         <li>
-          **Legal Requirements:** We may disclose your information if required to do so by law or in response to valid requests by public authorities (e.g., a court or a government agency).
+          <strong>Legal Requirements:</strong> We may disclose your information if required to do so by law or in response to valid requests by public authorities (e.g., a court or a government agency).
         </li>
       </ul>
 
@@ -95,11 +93,10 @@ export default function Privacy() {
         If you have any questions about this Privacy Policy, please contact us:
       </p>
       <ul>
-        <li>By email: cryptotest@mail.com</li>
-        <li>By visiting this page : <span className='navigattoConact' onClick={() => navigate('/contact')}>Contact Us</span></li>
+        <li>By email: info@cryptoapp.com</li>
+        <li>By visiting this page: <Link to='/contact'>Contact Us</Link></li>
       </ul>
 
-      <p><strong>Please Note:</strong> This is a template Privacy Policy. You must review and customize it to accurately reflect your application's data collection, usage, and disclosure practices, and ensure compliance with all applicable laws and regulations (e.g., GDPR, CCPA).</p>
     </div>
   );
 }
