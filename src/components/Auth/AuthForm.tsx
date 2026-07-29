@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useNavigate } from 'react-router-dom';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { useAuth } from '../../hooks/useAuth';
 import './AuthForm.scss';
 
@@ -34,6 +35,7 @@ type AuthFormValues = z.infer<typeof registerSchema>;
 const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
   const { login, register: registerUser } = useAuth();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const {
     register,
@@ -73,7 +75,18 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
         </div>
         <div className="form-group">
           <label htmlFor="password">Password:</label>
-          <input type="password" id="password" {...register('password')} />
+          <div className="password-field">
+            <input type={showPassword ? 'text' : 'password'} id="password" {...register('password')} />
+            <button
+              type="button"
+              className="password-toggle"
+              onClick={() => setShowPassword((visible) => !visible)}
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
+              tabIndex={-1}
+            >
+              {showPassword ? <FiEyeOff /> : <FiEye />}
+            </button>
+          </div>
           {errors.password && <p className="error-message">{errors.password.message}</p>}
         </div>
         {errors.root && <p className="error-message">{errors.root.message}</p>}
