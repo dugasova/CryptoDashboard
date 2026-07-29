@@ -74,6 +74,18 @@
       }
     }
 
+    .error-message {
+      color: #e74c3c;
+      margin-top: 5px;
+      font-size: 0.9em;
+    }
+
+    .success-message {
+      color: #2e7d32;
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+
     button[type="submit"] {
       display: block;
       width: 100%;
@@ -86,8 +98,13 @@
       cursor: pointer;
       transition: background-color 0.2s ease;
 
-      &:hover {
+      &:hover:not(:disabled) {
         background-color: #0056b3; /* Using a darker shade of blue */
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
       }
     }
   }
