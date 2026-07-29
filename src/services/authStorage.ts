@@ -24,12 +24,10 @@ async function hashPassword(password: string, salt: string): Promise<string> {
 let usersCache: StoredUser[] | null = null;
 
 function getUsers(): StoredUser[] {
-  let users = usersCache;
-  if (users === null) {
-    const raw = localStorage.getItem(USERS_KEY);
-    users = raw ? JSON.parse(raw) : [];
-    usersCache = users;
-  }
+  if (usersCache !== null) return usersCache;
+  const raw = localStorage.getItem(USERS_KEY);
+  const users: StoredUser[] = raw ? JSON.parse(raw) : [];
+  usersCache = users;
   return users;
 }
 
