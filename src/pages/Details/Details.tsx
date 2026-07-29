@@ -30,23 +30,30 @@ const Details: React.FC = () => {
   const [retryCount, setRetryCount] = useState(0);
 
   useEffect(() => {
+    let cancelled = false;
+
     const fetchDetails = async () => {
       if (!id) return;
       setLoading(true);
       setError(null);
       try {
         const data = await getCoinDetails(id);
+        if (cancelled) return;
         setCoinDetails(data);
       } catch (err) {
+        if (cancelled) return;
         const message = err instanceof ApiError ? err.message : 'Failed to fetch cryptocurrency details.';
         setError(message);
         console.error(err);
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     };
 
     fetchDetails();
+    return () => {
+      cancelled = true;
+    };
   }, [id, retryCount]);
 
   if (loading) {

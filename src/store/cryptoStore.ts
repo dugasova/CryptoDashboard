@@ -26,6 +26,10 @@ interface CryptoState {
   removeUserCoins: (username: string) => void;
 }
 
+// Tracks the most recently issued fetchCoins call so a slower, older
+// request can't overwrite state with stale data once a newer one lands.
+let latestRequestId = 0;
+
 const useCryptoStore: StateCreator<CryptoState> = (set, get) => ({
   coins: [],
   loading: false,
@@ -39,6 +43,7 @@ const useCryptoStore: StateCreator<CryptoState> = (set, get) => ({
   selectedCoinsByUser: {},
 
   fetchCoins: async () => {
+    const requestId = ++latestRequestId;
     set({ loading: true, error: null });
     try {
       const { currentPage, itemsPerPage, searchQuery } = get();
@@ -49,19 +54,22 @@ const useCryptoStore: StateCreator<CryptoState> = (set, get) => ({
         const matches = await searchCoins(trimmedQuery);
         const ids = matches.slice(0, itemsPerPage).map((coin) => coin.id);
         const data = await getCoinsByIds(ids);
+        if (requestId !== latestRequestId) return;
         set({ coins: data, hasNextPage: false });
       } else {
         const data = await getCoinList(currentPage, itemsPerPage);
+        if (requestId !== latestRequestId) return;
         // CoinGecko's /coins/markets doesn't return a total count, so we infer
         // whether more pages exist from whether this page came back full.
         set({ coins: data, hasNextPage: data.length === itemsPerPage });
       }
     } catch (err) {
+      if (requestId !== latestRequestId) return;
       const message = err instanceof ApiError ? err.message : 'Failed to fetch cryptocurrency data.';
       set({ error: message, coins: [], hasNextPage: false });
       console.error(err);
     } finally {
-      set({ loading: false });
+      if (requestId === latestRequestId) set({ loading: false });
     }
   },
 
