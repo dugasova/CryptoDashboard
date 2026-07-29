@@ -9,6 +9,14 @@ interface CoinRowProps {
   onAddCoin: (coin: CoinData) => void;
 }
 
+// `value && value > 0` would treat 0 (flat) and null (no data) as falsy and
+// color both red, as if the price had dropped. Only an actual negative change
+// should read as red; a missing value should fall back to the default text color.
+function priceChangeColor(value: number | null | undefined): string | undefined {
+  if (value == null) return undefined;
+  return value >= 0 ? 'green' : 'red';
+}
+
 const CoinRow: React.FC<CoinRowProps> = ({ coin, username, onRowClick, onAddCoin }) => {
   const sparkline = coin.sparkline_in_7d?.price;
 
@@ -20,13 +28,13 @@ const CoinRow: React.FC<CoinRowProps> = ({ coin, username, onRowClick, onAddCoin
         {coin.name} ({coin.symbol.toUpperCase()})
       </td>
       <td>${coin.current_price.toLocaleString()}</td>
-      <td style={{ color: coin.price_change_percentage_1h_in_currency && coin.price_change_percentage_1h_in_currency > 0 ? 'green' : 'red' }}>
+      <td style={{ color: priceChangeColor(coin.price_change_percentage_1h_in_currency) }}>
         {coin.price_change_percentage_1h_in_currency?.toFixed(2)}%
       </td>
-      <td style={{ color: coin.price_change_percentage_24h_in_currency && coin.price_change_percentage_24h_in_currency > 0 ? 'green' : 'red' }}>
+      <td style={{ color: priceChangeColor(coin.price_change_percentage_24h_in_currency) }}>
         {coin.price_change_percentage_24h_in_currency?.toFixed(2)}%
       </td>
-      <td style={{ color: coin.price_change_percentage_7d_in_currency && coin.price_change_percentage_7d_in_currency > 0 ? 'green' : 'red' }}>
+      <td style={{ color: priceChangeColor(coin.price_change_percentage_7d_in_currency) }}>
         {coin.price_change_percentage_7d_in_currency?.toFixed(2)}%
       </td>
       <td>${coin.total_volume.toLocaleString()}</td>

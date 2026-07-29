@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './About.scss';
 
 export default function About() {
@@ -27,7 +28,7 @@ export default function About() {
       </p>
       <h2>Get in Touch</h2>
       <p>
-        We are always looking for ways to improve and would love to hear from you. If you have any questions, feedback, or suggestions, please visit our <a href="/contact">Contact Us</a> page.
+        We are always looking for ways to improve and would love to hear from you. If you have any questions, feedback, or suggestions, please visit our <Link to="/contact">Contact Us</Link> page.
       </p>
       <p>Thank you for using CryptoDash!</p>
     </div>

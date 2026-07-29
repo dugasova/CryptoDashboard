@@ -226,6 +226,15 @@ button {
   }
 }
 
+// Shared across every legal/marketing page (About, Privacy, TermsServices) —
+// kept here instead of a per-page stylesheet so it's not tied to which
+// lazy-loaded route chunk happens to load first.
+.brand-name {
+  font-weight: 700;
+  color: var(--accent-color);
+  letter-spacing: -0.2px;
+}
+
 .about-route {
   width: 500px;
   margin: 0 auto;
