@@ -1,7 +1,7 @@
 import type { CoinSearchResult, CoinMarketChart } from '../types/cryptoTypes';
 
-const APY_URL =  'https://api.coingecko.com/api/v3';
-const API_KEY = `CG-wkfMVNPvgZ8YuSb2p2Ah2qJk`;
+const APY_URL = 'https://api.coingecko.com/api/v3';
+const API_KEY = import.meta.env.VITE_COINGECKO_API_KEY;
 
 export class ApiError extends Error {
   status?: number;

@@ -19,13 +19,31 @@ async function hashPassword(password: string, salt: string): Promise<string> {
   return toHex(digest);
 }
 
+// In-memory cache avoids re-parsing localStorage on every auth check;
+// invalidated whenever another tab changes the users list.
+let usersCache: StoredUser[] | null = null;
+
 function getUsers(): StoredUser[] {
-  const raw = localStorage.getItem(USERS_KEY);
-  return raw ? JSON.parse(raw) : [];
+  let users = usersCache;
+  if (users === null) {
+    const raw = localStorage.getItem(USERS_KEY);
+    users = raw ? JSON.parse(raw) : [];
+    usersCache = users;
+  }
+  return users;
 }
 
 function saveUsers(users: StoredUser[]): void {
+  usersCache = users;
   localStorage.setItem(USERS_KEY, JSON.stringify(users));
+}
+
+if (typeof window !== 'undefined') {
+  window.addEventListener('storage', (event) => {
+    if (event.key === USERS_KEY) {
+      usersCache = null;
+    }
+  });
 }
 
 export async function registerUser(username: string, password: string): Promise<boolean> {
