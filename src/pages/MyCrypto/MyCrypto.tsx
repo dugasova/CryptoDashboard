@@ -1,12 +1,18 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import useCryptoStore from '../../store/cryptoStore';
+import { useShallow } from 'zustand/react/shallow';
 import { useAuth } from '../../hooks/useAuth';
 import type { CoinData } from '../../types/cryptoTypes';
 import './MyCrypto.scss';
 
 const MyCrypto: React.FC = () => {
-  const { selectedCoinsByUser, removeSelectedCoin } = useCryptoStore();
+  const { selectedCoinsByUser, removeSelectedCoin } = useCryptoStore(
+    useShallow((state) => ({
+      selectedCoinsByUser: state.selectedCoinsByUser,
+      removeSelectedCoin: state.removeSelectedCoin,
+    }))
+  );
   const navigate = useNavigate();
   const { username } = useAuth();
 

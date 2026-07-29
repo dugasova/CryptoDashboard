@@ -1,5 +1,6 @@
 import React from 'react';
 import useCryptoStore from '../../store/cryptoStore';
+import { useShallow } from 'zustand/react/shallow';
 import './PaginationControls.scss';
 
 const PaginationControls: React.FC = () => {
@@ -10,7 +11,16 @@ const PaginationControls: React.FC = () => {
     loading,
     searchQuery,
     setCurrentPage,
-  } = useCryptoStore();
+  } = useCryptoStore(
+    useShallow((state) => ({
+      coins: state.coins,
+      currentPage: state.currentPage,
+      hasNextPage: state.hasNextPage,
+      loading: state.loading,
+      searchQuery: state.searchQuery,
+      setCurrentPage: state.setCurrentPage,
+    }))
+  );
 
   const handleNextPage = () => {
     if (hasNextPage) {

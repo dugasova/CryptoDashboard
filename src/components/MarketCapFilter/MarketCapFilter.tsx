@@ -1,9 +1,17 @@
 import React from 'react';
 import useCryptoStore from '../../store/cryptoStore';
+import { useShallow } from 'zustand/react/shallow';
 import './MarketCapFilter.scss';
 
 const MarketCapFilter: React.FC = () => {
-  const { minMarketCap, maxMarketCap, setMinMarketCap, setMaxMarketCap } = useCryptoStore();
+  const { minMarketCap, maxMarketCap, setMinMarketCap, setMaxMarketCap } = useCryptoStore(
+    useShallow((state) => ({
+      minMarketCap: state.minMarketCap,
+      maxMarketCap: state.maxMarketCap,
+      setMinMarketCap: state.setMinMarketCap,
+      setMaxMarketCap: state.setMaxMarketCap,
+    }))
+  );
 
   const handleMinMarketCapChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;

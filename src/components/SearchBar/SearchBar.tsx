@@ -4,7 +4,7 @@ import { useDebouncedValue } from '../../hooks/useDebouncedValue';
 import './SearchBar.scss';
 
 const SearchBar: React.FC = () => {
-  const { setSearchQuery } = useCryptoStore();
+  const setSearchQuery = useCryptoStore((state) => state.setSearchQuery);
   const [inputValue, setInputValue] = useState('');
   const debouncedValue = useDebouncedValue(inputValue, 400);
 

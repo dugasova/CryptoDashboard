@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { LineChart, Line, YAxis, ResponsiveContainer } from 'recharts';
 import './Home.scss';
 import useCryptoStore from '../../store/cryptoStore';
+import { useShallow } from 'zustand/react/shallow';
 import { useAuth } from '../../hooks/useAuth';
 import type { CoinData } from '../../types/cryptoTypes';
 import MarketCapFilter from '../../components/MarketCapFilter/MarketCapFilter';
@@ -13,7 +14,8 @@ const Home: React.FC = () => {
   const navigate = useNavigate();
   const { username } = useAuth();
 
-  // Use state and actions from the Zustand store
+  // Selective subscription: only re-render when these specific fields change,
+  // not on every store update (e.g. selectedCoinsByUser changes from other pages).
   const {
     coins,
     loading,
@@ -24,7 +26,19 @@ const Home: React.FC = () => {
     searchQuery,
     fetchCoins,
     addSelectedCoin,
-  } = useCryptoStore();
+  } = useCryptoStore(
+    useShallow((state) => ({
+      coins: state.coins,
+      loading: state.loading,
+      error: state.error,
+      currentPage: state.currentPage,
+      minMarketCap: state.minMarketCap,
+      maxMarketCap: state.maxMarketCap,
+      searchQuery: state.searchQuery,
+      fetchCoins: state.fetchCoins,
+      addSelectedCoin: state.addSelectedCoin,
+    }))
+  );
 
   useEffect(() => {
     // Coins are paginated server-side and search re-queries CoinGecko, so
