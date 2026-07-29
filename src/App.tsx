@@ -9,7 +9,6 @@ import AuthGuard from './HOC/AuthGuard.tsx';
 
 // Lazy load the page components with explicit literal paths so Vite can code-split correctly
 const HomeLazy = lazy(() => import('./pages/Home/Home.tsx'));
-const CryptoLazy = lazy(() => import('./pages/Crypto/Crypto.tsx'));
 const DetailsLazy = lazy(() => import('./pages/Details/Details.tsx'));
 const MyCryptoLazy = lazy(() => import('./pages/MyCrypto/MyCrypto.tsx'));
 const AdminLazy = lazy(() => import('./pages/Admin/Admin.tsx'));
@@ -30,10 +29,6 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomeLazy />,
-      },
-      {
-        path: `crypto`,
-        element: <CryptoLazy />,
       },
       {
         path: `crypto/:id`,

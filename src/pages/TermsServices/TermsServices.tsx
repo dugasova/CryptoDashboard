@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './TermsServices.scss';
 
 export default function TermsServices() {
@@ -6,7 +7,7 @@ export default function TermsServices() {
       <h1>Terms of Service</h1>
       <p><em>Last Updated: June 30, 2025</em></p>
       <p>
-        Welcome to [Your App Name]! These Terms of Service ("Terms") govern your access to and use of the [Your App Name] cryptocurrency dashboard application (the "Service"). By accessing or using the Service, you agree to be bound by these Terms.
+        Welcome to <span className="brand-name">Crypto</span>! These Terms of Service ("Terms") govern your access to and use of the Crypto cryptocurrency dashboard application (the "Service"). By accessing or using the Service, you agree to be bound by these Terms.
       </p>
       <h2>Acceptance of Terms</h2>
       <p>
@@ -14,7 +15,7 @@ export default function TermsServices() {
       </p>
       <h2>Changes to Terms</h2>
       <p>
-        We reserve the right to modify or replace these Terms at any time. If a revision is material, we will provide at least [Number] days' notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion.
+        We reserve the right to modify or replace these Terms at any time. If a revision is material, we will provide at least 14 days' notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion.
       </p>
       <p>
         By continuing to access or use our Service after any revisions become effective, you agree to be bound by the revised terms. If you do not agree to the new terms, you are no longer authorized to use the Service.
@@ -37,7 +38,7 @@ export default function TermsServices() {
 
       <h2>Intellectual Property</h2>
       <p>
-        The Service and its original content, features, and functionality are and will remain the exclusive property of [Your Company Name] and its licensors. The Service is protected by copyright, trademark, and other laws of both the [Your Country] and foreign countries.
+        The Service and its original content, features, and functionality are and will remain the exclusive property of <span className="brand-name">Crypto</span> and its licensors. The Service is protected by copyright, trademark, and other laws of both Blockchain City and foreign countries.
       </p>
       <h2>Prohibited Uses</h2>
       <p>
@@ -46,8 +47,8 @@ export default function TermsServices() {
       <ul>
         <li>In any way that violates any applicable national, federal, state, local, or international law or regulation.</li>
         <li>To transmit, or procure the sending of, any advertising or promotional material, including any "junk mail," "chain letter," "spam," or any other similar solicitation.</li>
-        <li>To impersonate or attempt to impersonate [Your Company Name], a [Your Company Name] employee, another user, or any other person or entity.</li>
-        <li>To engage in any other conduct that restricts or inhibits anyone's use or enjoyment of the Service, or which, as determined by us, may harm [Your Company Name] or users of the Service or expose them to liability.</li>
+        <li>To impersonate or attempt to impersonate <span className="brand-name">Crypto</span>, a <span className="brand-name">Crypto</span> employee, another user, or any other person or entity.</li>
+        <li>To engage in any other conduct that restricts or inhibits anyone's use or enjoyment of the Service, or which, as determined by us, may harm <span className="brand-name">Crypto</span> or users of the Service or expose them to liability.</li>
       </ul>
       <h2>Disclaimer of Warranties</h2>
       <p>
@@ -56,21 +57,20 @@ export default function TermsServices() {
 
       <h2>Limitation on Liability</h2>
       <p>
-        In no event shall [Your Company Name], nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from (i) your access to or use of or inability to access or use the Service; (ii) any conduct or content of any third party on the Service; (iii) any content obtained from the Service; and (iv) unauthorized access, use or alteration of your transmissions or content, whether based on warranty, contract, tort (including negligence) or any other legal theory, whether or not we have been informed of the possibility of such damage, and even if a remedy set forth herein is found to have failed of its essential purpose.
+        In no event shall <span className="brand-name">Crypto</span>, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from (i) your access to or use of or inability to access or use the Service; (ii) any conduct or content of any third party on the Service; (iii) any content obtained from the Service; and (iv) unauthorized access, use or alteration of your transmissions or content, whether based on warranty, contract, tort (including negligence) or any other legal theory, whether or not we have been informed of the possibility of such damage, and even if a remedy set forth herein is found to have failed of its essential purpose.
       </p>
       <h2>Governing Law</h2>
       <p>
-        These Terms shall be governed and construed in accordance with the laws of [Your Country], without regard to its conflict of law provisions.
+        These Terms shall be governed and construed in accordance with the laws of Blockchain City, without regard to its conflict of law provisions.
       </p>
       <h2>Contact Us</h2>
       <p>
         If you have any questions about these Terms, please contact us:
       </p>
       <ul>
-        <li>By email: [Your Email Address]</li>
-        <li>By visiting this page on our website: [Link to your Contact Page]</li>
+        <li>By email: info@cryptoapp.com</li>
+        <li>By visiting this page on our website: <Link to="/contact"> Contact Us </Link></li>
       </ul>
-      <p><strong>Please Note:</strong> This is a template Terms of Service. You must review and customize it to accurately reflect the terms and conditions of your application and ensure compliance with all applicable laws and regulations.</p>
     </div>
   );
 }
