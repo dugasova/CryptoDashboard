@@ -1,0 +1,37 @@
+import type { CoinData } from '../types/cryptoTypes';
+
+export function makeCoin(overrides: Partial<CoinData> = {}): CoinData {
+  return {
+    id: 'bitcoin',
+    symbol: 'btc',
+    name: 'Bitcoin',
+    image: 'https://example.com/btc.png',
+    current_price: 50000,
+    market_cap: 1_000_000_000,
+    market_cap_rank: 1,
+    fully_diluted_valuation: null,
+    total_volume: 500_000,
+    high_24h: 51000,
+    low_24h: 49000,
+    price_change_24h: 100,
+    price_change_percentage_24h: 0.2,
+    market_cap_change_24h: 1000,
+    market_cap_change_percentage_24h: 0.1,
+    circulating_supply: 19_000_000,
+    total_supply: 21_000_000,
+    max_supply: 21_000_000,
+    ath: 69000,
+    ath_change_percentage: -27,
+    ath_date: '2021-11-10T00:00:00.000Z',
+    atl: 67,
+    atl_change_percentage: 74000,
+    atl_date: '2013-07-06T00:00:00.000Z',
+    roi: null,
+    last_updated: '2026-07-29T00:00:00.000Z',
+    price_change_percentage_1h_in_currency: 0.1,
+    price_change_percentage_24h_in_currency: 0.2,
+    price_change_percentage_7d_in_currency: 1.5,
+    sparkline_in_7d: { price: [100, 101, 102] },
+    ...overrides,
+  };
+}
