@@ -9,6 +9,7 @@ import SearchBar from '../../components/SearchBar/SearchBar';
 import PaginationControls from '../../components/PaginationControls/PaginationControls';
 import CoinRow from '../../components/CoinRow/CoinRow';
 import { useNavigate } from 'react-router-dom';
+import SkeletonLoader from '../../components/SkeletonLoader/SkeletonLoader';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -77,7 +78,7 @@ const Home: React.FC = () => {
           <button onClick={() => fetchCoins()}>Retry</button>
         </div>
       ) : loading ? (
-        <div>Loading...</div>
+        <SkeletonLoader />
       ) : (
         <>
           {filteredCoins.length === 0 && (
