@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { LineChart, Line, YAxis, ResponsiveContainer } from 'recharts';
+import React, { useCallback, useEffect } from 'react';
 import './Home.scss';
 import useCryptoStore from '../../store/cryptoStore';
 import { useShallow } from 'zustand/react/shallow';
@@ -8,6 +7,7 @@ import type { CoinData } from '../../types/cryptoTypes';
 import MarketCapFilter from '../../components/MarketCapFilter/MarketCapFilter';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import PaginationControls from '../../components/PaginationControls/PaginationControls';
+import CoinRow from '../../components/CoinRow/CoinRow';
 import { useNavigate } from 'react-router-dom';
 
 const Home: React.FC = () => {
@@ -45,6 +45,14 @@ const Home: React.FC = () => {
     // re-fetch whenever the page or the (debounced) search query changes.
     fetchCoins();
   }, [fetchCoins, currentPage, searchQuery]);
+
+  // Stable references so CoinRow's React.memo actually prevents re-renders
+  // of unrelated rows when Home re-renders (e.g. typing in the market cap filter).
+  const handleRowClick = useCallback((coinId: string) => navigate(`/crypto/${coinId}`), [navigate]);
+  const handleAddCoin = useCallback(
+    (coin: CoinData) => { if (username) addSelectedCoin(username, coin); },
+    [username, addSelectedCoin]
+  );
 
   // The min/max market cap filter narrows the coins already loaded for this
   // page — CoinGecko's /coins/markets endpoint has no server-side market cap
@@ -97,58 +105,13 @@ const Home: React.FC = () => {
             </thead>
             <tbody>
               {filteredCoins.map((coin: CoinData) => (
-                <tr
+                <CoinRow
                   key={coin.id}
-                  onClick={() => navigate(`/crypto/${coin.id}`)}
-                  className="clickable-row"
-                >
-                  <td>{coin.market_cap_rank}</td>
-                  <td>
-                    <img src={coin.image} alt={coin.name} width="20" height="20" />
-                    {coin.name} ({coin.symbol.toUpperCase()})
-                  </td>
-                  <td>${coin.current_price.toLocaleString()}</td>
-                  <td style={{ color: coin.price_change_percentage_1h_in_currency && coin.price_change_percentage_1h_in_currency > 0 ? 'green' : 'red' }}>
-                    {coin.price_change_percentage_1h_in_currency?.toFixed(2)}%
-                  </td>
-                  <td style={{ color: coin.price_change_percentage_24h_in_currency && coin.price_change_percentage_24h_in_currency > 0 ? 'green' : 'red' }}>
-                    {coin.price_change_percentage_24h_in_currency?.toFixed(2)}%
-                  </td>
-                  <td style={{ color: coin.price_change_percentage_7d_in_currency && coin.price_change_percentage_7d_in_currency > 0 ? 'green' : 'red' }}>
-                    {coin.price_change_percentage_7d_in_currency?.toFixed(2)}%
-                  </td>
-                  <td>${coin.total_volume.toLocaleString()}</td>
-                  <td>${coin.market_cap.toLocaleString()}</td>
-                  <td>
-                    {coin.sparkline_in_7d?.price && (
-                      <ResponsiveContainer width="100%" height={70}>
-                        <LineChart data={coin.sparkline_in_7d.price.map((price: number, index: number) => ({ price, day: index }))}>
-                          <YAxis hide domain={['dataMin', 'dataMax']} />
-                          <Line
-                            type="monotone"
-                            dataKey="price"
-                            stroke={
-                              coin.sparkline_in_7d.price[coin.sparkline_in_7d.price.length - 1] >= coin.sparkline_in_7d.price[0]
-                                ? 'green'
-                                : 'red'
-                            }
-                            strokeWidth={2}
-                            dot={false}
-                          />
-                        </LineChart>
-                      </ResponsiveContainer>
-                    )}
-                  </td>
-                  <td>
-                    <button
-                      onClick={(e) => { e.stopPropagation(); if (username) addSelectedCoin(username, coin); }}
-                      disabled={!username}
-                      title={username ? undefined : 'Log in to save coins to My Crypto'}
-                    >
-                      Add to My Crypto
-                    </button>
-                  </td>
-                </tr>
+                  coin={coin}
+                  username={username}
+                  onRowClick={handleRowClick}
+                  onAddCoin={handleAddCoin}
+                />
               ))}
             </tbody>
           </table>
